@@ -1,45 +1,34 @@
-import { ActionFunction } from 'react-router-dom'
-import Step1 from './pages/Step1'
-import Step2 from './pages/Step2'
-import Step3 from './pages/Step3'
+import PersonalInfo from './pages/PersonalInfo'
+import Cotacts from './pages/Cotacts'
+import Files from './pages/Files'
 import Result from './pages/Result'
-
-export type LoaderFunc = ({
-  request,
-  params
-}: {
-  request: unknown | undefined
-  params: unknown | undefined
-}) => Promise<unknown>
+import paths from './constants'
 
 type TSingleRoute = {
   index?: boolean
   path: string
   component: () => JSX.Element | null
-  loaderFunc?: LoaderFunc
-  errorComponent?: (() => JSX.Element | null) | (() => unknown)
-  action?: ActionFunction
 }
 
 const routesSet: TSingleRoute[] = [
   {
     index: true,
-    path: '/',
-    component: Step1
+    path: paths.root,
+    component: PersonalInfo
   },
   {
     index: true,
-    path: '/step2',
-    component: Step2
+    path: paths.contacts,
+    component: Cotacts
   },
   {
     index: true,
-    path: '/step3',
-    component: Step3
+    path: paths.files,
+    component: Files
   },
   {
     index: true,
-    path: '/result',
+    path: paths.result,
     component: Result
   }
 ]

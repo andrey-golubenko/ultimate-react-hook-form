@@ -1,8 +1,8 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme, Theme } from '@mui/material/styles'
 
 import typography from './typography'
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   typography
 })
 

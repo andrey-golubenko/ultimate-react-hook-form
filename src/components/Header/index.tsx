@@ -1,16 +1,17 @@
-import reactLogo from '@/Assets/react.svg'
-import viteLogo from '@/Assets/vite.svg'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import theme from '@/theme/theme'
 
-function Header() {
-  return (
-    <>
-      <div id="logos">
-        <img src={viteLogo} className="logo" data-testid="vite-logo" alt="Vite logo" />
-        <img src={reactLogo} className="logo react" data-testid="react-logo" alt="React logo" />
-      </div>
-      <h2>Vite + React + TypeScript + Eslint (Airbnb) + Eslint + Jest + Testing Library = ViteRC❤️‍🔥</h2>
-    </>
-  )
-}
+const Header = () => (
+  <Paper component="header" elevation={2} sx={{ marginBottom: '3rem' }}>
+    <Typography
+      component="h1"
+      variant="h1"
+      sx={{ margin: theme.spacing(3, 0), textAlign: 'center', color: 'deeppink', textShadow: '1px 1px darkmagenta' }}
+    >
+      The Ultimate Form
+    </Typography>
+  </Paper>
+)
 
 export default Header
