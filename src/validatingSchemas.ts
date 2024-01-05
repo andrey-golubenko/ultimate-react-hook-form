@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { IFormFields } from './HOC/DataContex'
-// eslint-disable-next-line import/no-cycle
-import { TContacts } from './pages/Cotacts'
+
+export type TContacts = Pick<IFormFields, 'email' | 'hasPhone' | 'phoneNumber'>
 
 const stringRegExp = /^([^0-9]*)$/
 const phoneRegExp = /^([^a-zA-Z]*)$/

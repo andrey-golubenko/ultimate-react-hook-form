@@ -7,12 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import parsePhoneNumberFromString from 'libphonenumber-js'
 import CustomForm from '../HOC/CustomForm'
 import TextInput from '../components/TextInput'
-import { schemaCotacts } from '../validatingSchemas'
+import { TContacts, schemaCotacts } from '../validatingSchemas'
 import PrimaryButton from '../components/PrimaryButton'
 import { IFormFields, useData } from '../HOC/DataContex'
 import paths from '../constants'
-
-export type TContacts = Pick<IFormFields, 'email' | 'hasPhone' | 'phoneNumber'>
 
 const Cotacts = () => {
   const { formData, setFormValue } = useData()
@@ -86,9 +84,9 @@ const Cotacts = () => {
             name="phoneNumber"
             label="PhoneNumber"
             type="tel"
-            onChange={(event) => {
-              // eslint-disable-next-line no-param-reassign
-              event.target.value = normalizePhoneNumber(event.target.value)
+            onInput={(event) => {
+              // eslint-disable-next-line no-param-reassign, prettier/prettier
+              (event.target as HTMLInputElement).value = normalizePhoneNumber((event.target as HTMLInputElement).value)
             }}
             error={!!errors.phoneNumber}
             helperText={errors?.phoneNumber?.message}
