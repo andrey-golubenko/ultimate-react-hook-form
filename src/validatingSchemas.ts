@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { IFormFields } from './HOC/DataContex'
-// eslint-disable-next-line import/no-cycle
-import { TContacts } from './pages/Cotacts'
+
+export type TContacts = Pick<IFormFields, 'email' | 'hasPhone' | 'phoneNumber'>
 
 const stringRegExp = /^([^0-9]*)$/
 const phoneRegExp = /^([^a-zA-Z]*)$/
@@ -30,7 +30,7 @@ export const schemaCotacts: yup.ObjectSchema<TContacts, yup.AnyObject, TContacts
     then: () =>
       yup
         .string()
-        .matches(phoneRegExp, { message: 'Phone number should contain only numbers', excludeEmptyString: false })
+        .matches(phoneRegExp, { message: 'Phone number should contain only numbers' })
         .required("The field can't be empty!")
   })
 })

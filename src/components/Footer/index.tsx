@@ -8,8 +8,7 @@ const Footer = () => (
     sx={{
       py: 3,
       px: 2,
-      mt: 'auto',
-      width: '100%'
+      mt: 'auto'
     }}
   >
     <Typography variant="body2">
