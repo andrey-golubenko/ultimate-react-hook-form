@@ -31,12 +31,17 @@ app.post('/', limiter, async (req, res) => {
       ;[req.files.files].flat().map((file) => file.mv(`./uploads/${file.name}`))
     }
 
-    fs.writeFile('./uploads/data.json', JSON.stringify(req.body), 'utf8', () => {
-      res.send({
-        status: true,
-        message: 'Data is uploaded'
-      })
-    })
+    fs.writeFile(
+      './uploads/data.json',
+      JSON.stringify(req.body),
+      'utf8',
+      () => {
+        res.send({
+          status: true,
+          message: 'Data is uploaded'
+        })
+      }
+    )
   } catch (e) {
     // @ts-ignore
     res.status(500).send(e?.message)

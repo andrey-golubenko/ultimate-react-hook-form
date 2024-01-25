@@ -1,6 +1,9 @@
 import { createContext, useContext, useMemo, useState } from 'react'
 
-const DataContex = createContext<IUseData>({ formData: {}, setFormValue: () => null })
+const DataContex = createContext<IUseData>({
+  formData: {},
+  setFormValue: () => null
+})
 
 export interface IFormFields {
   firstName?: string
@@ -8,12 +11,14 @@ export interface IFormFields {
   email?: string
   hasPhone?: boolean
   phoneNumber?: string
+  password?: string
+  passwordConfirmation?: string
   loadFiles?: File[]
 }
 
 interface IUseData {
   formData: IFormFields
-  setFormValue: (value: NonNullable<unknown>) => void
+  setFormValue: (value: NonNullable<IFormFields>) => void
 }
 
 export const DataProvider = ({ children }: React.PropsWithChildren) => {
@@ -34,7 +39,11 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
     [formData]
   )
 
-  return <DataContex.Provider value={memorizedContext}>{children}</DataContex.Provider>
+  return (
+    <DataContex.Provider value={memorizedContext}>
+      {children}
+    </DataContex.Provider>
+  )
 }
 
 export const useData: () => IUseData = () => useContext<IUseData>(DataContex)

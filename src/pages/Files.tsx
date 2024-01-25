@@ -1,29 +1,46 @@
 import Typography from '@mui/material/Typography'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import CustomForm from '../HOC/CustomForm'
-import FileInput from '../components/FileInput/FileInput'
+import { yupResolver } from '@hookform/resolvers/yup'
+import CustomForm from '../components/FormComponents/CustomForm'
+import FileInput from '../components/FormComponents/FileInput'
 import PrimaryButton from '../components/PrimaryButton'
 import { IFormFields, useData } from '../HOC/DataContex'
-import paths from '../constants'
+import { Paths } from '../constants'
+import { schemaFiles } from '../Yup/validatingSchemas'
+
+type FilesType = Pick<IFormFields, 'loadFiles'>
 
 const Files = () => {
   const { formData, setFormValue } = useData()
-  const { handleSubmit, setValue, register, watch } = useForm<Pick<IFormFields, 'loadFiles'>>({
-    defaultValues: { loadFiles: formData?.loadFiles }
+  const {
+    handleSubmit,
+    setValue,
+    register,
+    watch,
+    formState: { errors }
+  } = useForm<FilesType>({
+    defaultValues: { loadFiles: formData?.loadFiles },
+    resolver: yupResolver(schemaFiles)
   })
   const navigate = useNavigate()
 
-  const onSubmit = (data: Pick<IFormFields, 'loadFiles'>) => {
+  const onSubmit = (data: FilesType) => {
     setFormValue(data)
-    navigate(paths.result)
+    navigate(Paths.result)
   }
 
   return (
     <>
       <Typography component="h5">Files</Typography>
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
-        <FileInput name="loadFiles" setValue={setValue} register={register} watch={watch} />
+        <FileInput
+          name="loadFiles"
+          setValue={setValue}
+          register={register}
+          watch={watch}
+          validatErrors={errors?.loadFiles}
+        />
         <PrimaryButton>Next</PrimaryButton>
       </CustomForm>
     </>

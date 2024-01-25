@@ -1,18 +1,18 @@
-import Typography from '@mui/material/Typography'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Typography from '@mui/material/Typography'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 import parsePhoneNumberFromString from 'libphonenumber-js'
-import CustomForm from '../HOC/CustomForm'
-import TextInput from '../components/TextInput'
-import { TContacts, schemaCotacts } from '../validatingSchemas'
+import CustomForm from '../components/FormComponents/CustomForm'
+import TextInput from '../components/FormComponents/TextInput'
+import { ContactsType, schemaContacts } from '../Yup/validatingSchemas'
 import PrimaryButton from '../components/PrimaryButton'
-import { IFormFields, useData } from '../HOC/DataContex'
-import paths from '../constants'
+import { useData } from '../HOC/DataContex'
+import { Paths } from '../constants'
 
-const Cotacts = () => {
+const Contacts = () => {
   const { formData, setFormValue } = useData()
   const {
     register,
@@ -20,19 +20,23 @@ const Cotacts = () => {
     formState: { errors },
     watch,
     control
-  } = useForm<TContacts>({
-    defaultValues: { email: formData?.email, hasPhone: formData?.hasPhone, phoneNumber: formData?.phoneNumber },
+  } = useForm<ContactsType>({
+    defaultValues: {
+      email: formData?.email,
+      hasPhone: formData?.hasPhone,
+      phoneNumber: formData?.phoneNumber
+    },
     mode: 'onBlur',
-    resolver: yupResolver(schemaCotacts)
+    resolver: yupResolver(schemaContacts)
   })
 
   const hasPhone = watch('hasPhone')
 
   const navigate = useNavigate()
 
-  const onSubmit = (data: TContacts) => {
+  const onSubmit = (data: ContactsType) => {
     setFormValue(data)
-    navigate(paths.files)
+    navigate(Paths.password)
   }
 
   const normalizePhoneNumber = (value: string) => {
@@ -46,7 +50,7 @@ const Cotacts = () => {
 
   return (
     <>
-      <Typography variant="h5">Cotacts</Typography>
+      <Typography variant="h5">Contacts</Typography>
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           {...register('email')}
@@ -98,4 +102,4 @@ const Cotacts = () => {
   )
 }
 
-export default Cotacts
+export default Contacts

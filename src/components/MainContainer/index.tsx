@@ -1,16 +1,16 @@
 import Container from '@mui/material/Container'
 import { useLocation } from 'react-router-dom'
 import theme from '@/theme/theme'
-import paths from '@/constants'
+import { Paths } from '@/constants'
 
 const MainContainer = ({ children, ...props }: React.PropsWithChildren) => {
   const { pathname } = useLocation()
-  const locationResult = pathname === paths.result
+  const pathnameResult = pathname === Paths.result
 
   return (
     <Container
       component="main"
-      maxWidth={locationResult ? 'sm' : 'xs'}
+      maxWidth={pathnameResult ? 'sm' : 'xs'}
       sx={{
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(15),

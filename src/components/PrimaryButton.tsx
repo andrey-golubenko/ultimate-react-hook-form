@@ -6,7 +6,10 @@ interface IPrimaryButton extends React.PropsWithChildren {
   onClick?: () => void
 }
 
-const PrimaryButton: FC<IPrimaryButton> = ({ children, ...props }: React.PropsWithChildren) => (
+const PrimaryButton: FC<IPrimaryButton> = ({
+  children,
+  ...props
+}: React.PropsWithChildren) => (
   <Button
     variant="contained"
     fullWidth

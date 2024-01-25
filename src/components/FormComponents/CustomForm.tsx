@@ -1,11 +1,16 @@
 import { styled } from '@mui/material/styles'
 import { BaseSyntheticEvent, FormHTMLAttributes } from 'react'
 
-type TPropsCustomForm = FormHTMLAttributes<HTMLFormElement> & {
-  onSubmit: (e?: BaseSyntheticEvent<object, unknown, unknown> | undefined) => Promise<void>
+type PropsCustomForm = FormHTMLAttributes<HTMLFormElement> & {
+  onSubmit: (
+    e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
+  ) => Promise<void>
 }
 
-const CustomForm = ({ children, ...props }: React.PropsWithChildren<TPropsCustomForm>) => {
+const CustomForm = ({
+  children,
+  ...props
+}: React.PropsWithChildren<PropsCustomForm>) => {
   const Form = styled('form')(({ theme }) => ({
     width: '100%',
     marginTop: theme.spacing(1)

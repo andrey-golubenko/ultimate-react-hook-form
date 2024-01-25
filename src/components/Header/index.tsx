@@ -7,7 +7,12 @@ const Header = () => (
     <Typography
       component="h1"
       variant="h1"
-      sx={{ margin: theme.spacing(3, 0), textAlign: 'center', color: 'deeppink', textShadow: '1px 1px darkmagenta' }}
+      sx={{
+        margin: theme.spacing(3, 0),
+        textAlign: 'center',
+        color: 'deeppink',
+        textShadow: '1px 1px darkmagenta'
+      }}
     >
       The Ultimate Form
     </Typography>

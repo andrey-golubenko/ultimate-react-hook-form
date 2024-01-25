@@ -1,35 +1,54 @@
 import PersonalInfo from './pages/PersonalInfo'
-import Cotacts from './pages/Cotacts'
+import Cotacts from './pages/Contacts'
 import Files from './pages/Files'
 import Result from './pages/Result'
-import paths from './constants'
+import { Paths } from './constants'
+import Password from './pages/Password'
+import NotFoudPage from './pages/NotFoudPage'
+import ErrorPage from './pages/ErrorPage'
 
-type TSingleRoute = {
+type SingleRoute = {
   index?: boolean
   path: string
   component: () => JSX.Element | null
+  errorComponent: () => JSX.Element | null
 }
 
-const routesSet: TSingleRoute[] = [
+const routesSet: SingleRoute[] = [
   {
     index: true,
-    path: paths.root,
-    component: PersonalInfo
+    path: Paths.root,
+    component: PersonalInfo,
+    errorComponent: ErrorPage
   },
   {
     index: true,
-    path: paths.contacts,
-    component: Cotacts
+    path: Paths.contacts,
+    component: Cotacts,
+    errorComponent: ErrorPage
   },
   {
     index: true,
-    path: paths.files,
-    component: Files
+    path: Paths.password,
+    component: Password,
+    errorComponent: ErrorPage
   },
   {
     index: true,
-    path: paths.result,
-    component: Result
+    path: Paths.files,
+    component: Files,
+    errorComponent: ErrorPage
+  },
+  {
+    index: true,
+    path: Paths.result,
+    component: Result,
+    errorComponent: ErrorPage
+  },
+  {
+    path: Paths.notFound,
+    component: NotFoudPage,
+    errorComponent: ErrorPage
   }
 ]
 

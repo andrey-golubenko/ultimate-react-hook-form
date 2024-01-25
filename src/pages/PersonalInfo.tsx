@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
 import { IFormFields, useData } from '../HOC/DataContex'
-import CustomForm from '../HOC/CustomForm'
-import TextInput from '../components/TextInput'
+import CustomForm from '../components/FormComponents/CustomForm'
+import TextInput from '../components/FormComponents/TextInput'
 import PrimaryButton from '../components/PrimaryButton'
-import { schemaPersonalInfo } from '../validatingSchemas'
-import paths from '../constants'
+import { PersonalInfoType, schemaPersonalInfo } from '../Yup/validatingSchemas'
+import { Paths } from '../constants'
 
 const PersonalInfo = () => {
   const { formData, setFormValue } = useData()
@@ -15,8 +15,11 @@ const PersonalInfo = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Pick<IFormFields, 'firstName' | 'lastName'>>({
-    defaultValues: { firstName: formData?.firstName, lastName: formData?.lastName },
+  } = useForm<PersonalInfoType>({
+    defaultValues: {
+      firstName: formData?.firstName,
+      lastName: formData?.lastName
+    },
     mode: 'onBlur',
     resolver: yupResolver(schemaPersonalInfo)
   })
@@ -24,7 +27,7 @@ const PersonalInfo = () => {
 
   const onSubmit = (data: IFormFields) => {
     setFormValue(data)
-    navigate(paths.contacts)
+    navigate(Paths.contacts)
   }
 
   return (

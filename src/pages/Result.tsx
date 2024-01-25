@@ -9,14 +9,16 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import Swal from 'sweetalert2'
 import { useData } from '../HOC/DataContex'
-import FilesList from '../components/FilesList'
-import paths from '../constants'
+import FilesList from '../components/FileList'
 import PrimaryButton from '../components/PrimaryButton'
+import { Paths } from '../constants'
 
 const Result = () => {
   const { formData } = useData()
 
-  const entries = Object.entries(formData).filter((entry) => entry[0] !== 'loadFiles' && entry[0] !== 'hasPhone')
+  const entries = Object.entries(formData).filter(
+    (entry) => entry[0] !== 'loadFiles' && entry[0] !== 'hasPhone'
+  )
 
   const { loadFiles } = formData
 
@@ -24,7 +26,9 @@ const Result = () => {
     const nativeFormData = new FormData()
 
     if (loadFiles) {
-      loadFiles.forEach((file) => nativeFormData.append('files', file, file.name))
+      loadFiles.forEach((file) =>
+        nativeFormData.append('files', file, file.name)
+      )
     }
 
     entries.forEach((entry) => nativeFormData.append(entry[0], entry[1]))
@@ -73,7 +77,14 @@ const Result = () => {
           <FilesList files={loadFiles} />
         </>
       )}
-      <Link to={paths.root} style={{ color: '#ff1493', textShadow: '1px 1px darkmagenta', fontSize: '20px' }}>
+      <Link
+        to={Paths.root}
+        style={{
+          color: '#ff1493',
+          textShadow: '1px 1px darkmagenta',
+          fontSize: '20px'
+        }}
+      >
         Start over !
       </Link>
       <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
