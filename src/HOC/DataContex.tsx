@@ -14,6 +14,7 @@ export interface IFormFields {
   password?: string
   passwordConfirmation?: string
   loadFiles?: File[]
+  video?: string | null
 }
 
 interface IUseData {

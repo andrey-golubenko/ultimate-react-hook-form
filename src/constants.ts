@@ -3,6 +3,7 @@ export const Paths = {
   contacts: '/contacts',
   password: '/password',
   files: '/files',
+  video: '/video',
   result: '/result',
   notFound: '*'
 }

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { CloudUpload, Archive } from '@mui/icons-material'
@@ -12,9 +12,8 @@ import {
   UseFormWatch
 } from 'react-hook-form'
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import { flushSync } from 'react-dom'
 import { nanoid } from 'nanoid'
-import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '@/constants'
+import { MAX_FILE_SIZE } from '@/constants'
 import FilesList from '../FileList'
 
 interface IFileInput {
@@ -23,6 +22,8 @@ interface IFileInput {
   register: UseFormRegister<FieldValues>
   watch: UseFormWatch<FieldValues>
   validatErrors: Merge<FieldError, (FieldError | undefined)[]> | undefined
+  hasDuplicate: [] | string[]
+  setHasDuplicate: React.Dispatch<React.SetStateAction<string[] | []>>
 }
 
 type OnDropType =
@@ -38,9 +39,10 @@ const FileInput: FC<IFileInput> = ({
   setValue,
   register,
   watch,
-  validatErrors
+  validatErrors,
+  hasDuplicate,
+  setHasDuplicate
 }) => {
-  const [hadDuplicate, setHadDuplicate] = useState<string[] | []>([])
   useEffect(() => {
     register(name)
   }, [register, name])
@@ -60,17 +62,15 @@ const FileInput: FC<IFileInput> = ({
         (file) => !filesNames?.includes(file?.name)
       )
 
+      setHasDuplicate(() => [...duplicatedFiles])
+
       if (uniqueFiles.length) {
         const newFiles =
           (!!files?.length && [...files].concat(uniqueFiles)) || uniqueFiles
         setValue(name, newFiles)
       }
-
-      flushSync(() => {
-        setHadDuplicate(() => [...duplicatedFiles])
-      })
     },
-    [files, setValue, name, setHadDuplicate]
+    [files, setValue, name, setHasDuplicate]
   )
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
@@ -85,10 +85,7 @@ const FileInput: FC<IFileInput> = ({
 
   const { onBlur, onChange } = register(name)
 
-  const isWrongFileSize: boolean =
-    validatErrors?.message === WRONG_FILE_SIZE_MESSAGE
-
-  const wordEnd = hadDuplicate && hadDuplicate.length > 1 ? 's' : ''
+  const wordEnd = hasDuplicate && hasDuplicate.length > 1 ? 's' : ''
 
   return (
     <>
@@ -129,7 +126,7 @@ const FileInput: FC<IFileInput> = ({
           {validatErrors?.message}
         </Typography>
       )}
-      {!!hadDuplicate?.length && (
+      {!!hasDuplicate?.length && (
         <>
           <Typography
             variant="body2"
@@ -139,7 +136,7 @@ const FileInput: FC<IFileInput> = ({
           </Typography>
 
           <List>
-            {hadDuplicate.map((fileName: string) => (
+            {hasDuplicate.map((fileName: string) => (
               <ListItem key={nanoid()}>
                 <ListItemIcon>
                   <Archive fontSize="small" sx={{ color: 'red' }} />
@@ -161,11 +158,7 @@ const FileInput: FC<IFileInput> = ({
         </>
       )}
       {!!files?.length && (
-        <FilesList
-          files={files}
-          sizeError={isWrongFileSize}
-          handleDelete={handleDelete}
-        />
+        <FilesList files={files} handleDelete={handleDelete} />
       )}
     </>
   )

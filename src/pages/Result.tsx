@@ -5,12 +5,12 @@ import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
 import Swal from 'sweetalert2'
+import FilesList from '@/Components/FileList'
+import PrimaryButton from '@/Components/PrimaryButton'
+import ResultTableRow from '@/Components/ResultTableBody'
+import ResultTableHead from '@/Components/ResultTableHead'
 import { useData } from '../HOC/DataContex'
-import FilesList from '../components/FileList'
-import PrimaryButton from '../components/PrimaryButton'
 import { Paths } from '../constants'
 
 const Result = () => {
@@ -51,21 +51,11 @@ const Result = () => {
       <TableContainer component={Paper} sx={{ marginBottom: '3rem' }}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontSize: '28px' }}>Field</TableCell>
-              <TableCell sx={{ fontSize: '28px' }} align="right">
-                Value
-              </TableCell>
-            </TableRow>
+            <ResultTableHead />
           </TableHead>
           <TableBody>
             {!!entries.length &&
-              entries.map((entry) => (
-                <TableRow key={entry[0]} sx={{ fontSize: '20px' }}>
-                  <TableCell>{entry[0]}</TableCell>
-                  <TableCell align="right">{entry[1].toString()}</TableCell>
-                </TableRow>
-              ))}
+              entries.map((entry) => <ResultTableRow entry={entry} />)}
           </TableBody>
         </Table>
       </TableContainer>

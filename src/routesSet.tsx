@@ -6,6 +6,7 @@ import { Paths } from './constants'
 import Password from './pages/Password'
 import NotFoudPage from './pages/NotFoudPage'
 import ErrorPage from './pages/ErrorPage'
+import Video from './pages/Video'
 
 type SingleRoute = {
   index?: boolean
@@ -37,6 +38,12 @@ const routesSet: SingleRoute[] = [
     index: true,
     path: Paths.files,
     component: Files,
+    errorComponent: ErrorPage
+  },
+  {
+    index: true,
+    path: Paths.video,
+    component: Video,
     errorComponent: ErrorPage
   },
   {

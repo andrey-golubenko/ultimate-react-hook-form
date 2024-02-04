@@ -13,16 +13,15 @@ import { MAX_FILE_SIZE } from '../constants'
 
 interface IFilesList {
   files: File[]
-  sizeError: boolean
   handleDelete?: (name: string) => void
 }
 
-const FilesList: FC<IFilesList> = ({ files, sizeError, handleDelete }) => (
+const FilesList: FC<IFilesList> = ({ files, handleDelete }) => (
   <Paper variant="outlined">
     <List sx={{ marginBottom: '3rem' }}>
       {!!files?.length &&
         files.map((file) => {
-          const wrongFileSize = sizeError && file?.size >= MAX_FILE_SIZE
+          const wrongFileSize = file?.size >= MAX_FILE_SIZE
           const fileSize = (file.size / 1024)?.toFixed(1) || 0
 
           return (

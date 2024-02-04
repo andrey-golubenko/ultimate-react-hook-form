@@ -2,6 +2,7 @@ import Typography from '@mui/material/Typography'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
 import CustomForm from '../components/FormComponents/CustomForm'
 import FileInput from '../components/FormComponents/FileInput'
 import PrimaryButton from '../components/PrimaryButton'
@@ -23,11 +24,14 @@ const Files = () => {
     defaultValues: { loadFiles: formData?.loadFiles },
     resolver: yupResolver(schemaFiles)
   })
+
+  const [hasDuplicate, setHasDuplicate] = useState<string[] | []>([])
+
   const navigate = useNavigate()
 
   const onSubmit = (data: FilesType) => {
     setFormValue(data)
-    navigate(Paths.result)
+    navigate(Paths.video)
   }
 
   return (
@@ -40,6 +44,8 @@ const Files = () => {
           register={register}
           watch={watch}
           validatErrors={errors?.loadFiles}
+          hasDuplicate={hasDuplicate}
+          setHasDuplicate={setHasDuplicate}
         />
         <PrimaryButton>Next</PrimaryButton>
       </CustomForm>

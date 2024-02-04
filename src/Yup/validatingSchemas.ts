@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 import * as yup from 'yup'
 import YupPassword from 'yup-password'
+import getVideoId from 'get-video-id'
 import { IFormFields } from '../HOC/DataContex'
 import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '../constants'
 
@@ -19,6 +20,8 @@ export type PasswordType = Pick<
 >
 
 export type FilesType = Pick<IFormFields, 'loadFiles'>
+
+export type VideoType = Pick<IFormFields, 'video'>
 
 const stringRegExp = /^([^0-9]*)$/
 const phoneRegExp = /^([^a-zA-Z]*)$/
@@ -93,5 +96,25 @@ export const schemaFiles: yup.ObjectSchema<
     .required('Files is required field!')
     .test('loadFiles', WRONG_FILE_SIZE_MESSAGE, (value: File[]) =>
       value.every((file: File) => file?.size <= MAX_FILE_SIZE)
+    )
+})
+
+export const videoSchema: yup.ObjectSchema<
+  VideoType,
+  yup.AnyObject,
+  VideoType,
+  ''
+> = yup.object().shape({
+  video: yup
+    .string()
+    .required('Video is required field!')
+    .test(
+      'validateVideoLink',
+      'Video link is invalid',
+      (value: string | null | undefined) => {
+        const { id } = getVideoId(value as string)
+
+        return !!id
+      }
     )
 })

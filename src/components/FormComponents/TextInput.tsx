@@ -11,8 +11,8 @@ const TextInput: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
       variant="outlined"
       margin="normal"
       fullWidth
-      {...props}
       inputRef={ref}
+      {...props}
     />
   )
 )
