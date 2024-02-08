@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
-import fs from 'fs'
-import express from 'express'
-import fileUpload from 'express-fileupload'
-import cors from 'cors'
-import morgan from 'morgan'
-import rateLimit from 'express-rate-limit'
+const fs = require('fs')
+const express = require('express')
+const fileUpload = require('express-fileupload')
+const cors = require('cors')
+const morgan = require('morgan')
+const rateLimit = require('express-rate-limit')
 
 const app = express()
 

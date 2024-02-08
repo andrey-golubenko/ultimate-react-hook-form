@@ -6,18 +6,23 @@ import Table from '@mui/material/Table'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import Swal from 'sweetalert2'
+import { nanoid } from 'nanoid'
+import Stack from '@mui/material/Stack'
 import FilesList from '@/Components/FileList'
 import PrimaryButton from '@/Components/PrimaryButton'
-import ResultTableRow from '@/Components/ResultTableBody'
+import ResultTableBody from '@/Components/ResultTableBody'
 import ResultTableHead from '@/Components/ResultTableHead'
 import { useData } from '../HOC/DataContex'
-import { Paths } from '../constants'
+import { PATHS } from '../constants'
 
 const Result = () => {
   const { formData } = useData()
 
   const entries = Object.entries(formData).filter(
-    (entry) => entry[0] !== 'loadFiles' && entry[0] !== 'hasPhone'
+    (entry) =>
+      entry[0] !== 'loadFiles' &&
+      entry[0] !== 'hasPhone' &&
+      entry[0] !== 'passwordConfirmation'
   )
 
   const { loadFiles } = formData
@@ -55,20 +60,22 @@ const Result = () => {
           </TableHead>
           <TableBody>
             {!!entries.length &&
-              entries.map((entry) => <ResultTableRow entry={entry} />)}
+              entries.map((entry) => (
+                <ResultTableBody key={nanoid()} entry={entry} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       {!!loadFiles?.length && (
-        <>
-          <Typography component="h2" variant="h5" marginBottom={2}>
+        <Stack marginBottom={2}>
+          <Typography component="h2" variant="h5" marginBottom={2.5}>
             📦 Files
           </Typography>
           <FilesList files={loadFiles} />
-        </>
+        </Stack>
       )}
       <Link
-        to={Paths.root}
+        to={PATHS.personal_information}
         style={{
           color: '#ff1493',
           textShadow: '1px 1px darkmagenta',

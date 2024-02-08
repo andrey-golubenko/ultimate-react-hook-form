@@ -1,10 +1,11 @@
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Typography from '@mui/material/Typography'
 import CustomForm from '@/Components/FormComponents/CustomForm'
 import VideoInput from '@/Components/FormComponents/VideoInput'
 import PrimaryButton from '@/Components/PrimaryButton'
-import { Paths } from '../constants'
+import { PATHS } from '../constants'
 import { useData } from '../HOC/DataContex'
 import { VideoType, videoSchema } from '../Yup/validatingSchemas'
 
@@ -25,21 +26,24 @@ const Video = () => {
 
   const onSubmit = (data: VideoType) => {
     setFormValue(data)
-    navigate(Paths.result)
+    navigate(PATHS.result)
   }
 
   return (
-    <CustomForm onSubmit={handleSubmit(onSubmit)}>
-      <VideoInput
-        register={register as unknown as UseFormRegister<FieldValues>}
-        name="video"
-        label="Video"
-        id="video"
-        validatErrors={errors?.video}
-        watch={watch}
-      />
-      <PrimaryButton>Next</PrimaryButton>
-    </CustomForm>
+    <>
+      <Typography variant="h5">Enter your video link</Typography>
+      <CustomForm onSubmit={handleSubmit(onSubmit)}>
+        <VideoInput
+          register={register as unknown as UseFormRegister<FieldValues>}
+          id="video"
+          name="video"
+          label="Video"
+          validatErrors={errors?.video}
+          watch={watch}
+        />
+        <PrimaryButton>Next</PrimaryButton>
+      </CustomForm>
+    </>
   )
 }
 

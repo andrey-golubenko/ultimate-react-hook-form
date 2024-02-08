@@ -18,7 +18,7 @@ interface IFilesList {
 
 const FilesList: FC<IFilesList> = ({ files, handleDelete }) => (
   <Paper variant="outlined">
-    <List sx={{ marginBottom: '3rem' }}>
+    <List sx={{ margin: '1rem 0' }}>
       {!!files?.length &&
         files.map((file) => {
           const wrongFileSize = file?.size >= MAX_FILE_SIZE

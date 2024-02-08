@@ -10,7 +10,7 @@ import TextInput from '../components/FormComponents/TextInput'
 import { ContactsType, schemaContacts } from '../Yup/validatingSchemas'
 import PrimaryButton from '../components/PrimaryButton'
 import { useData } from '../HOC/DataContex'
-import { Paths } from '../constants'
+import { PATHS } from '../constants'
 
 const Contacts = () => {
   const { formData, setFormValue } = useData()
@@ -36,7 +36,7 @@ const Contacts = () => {
 
   const onSubmit = (data: ContactsType) => {
     setFormValue(data)
-    navigate(Paths.password)
+    navigate(PATHS.password)
   }
 
   const normalizePhoneNumber = (value: string) => {
@@ -50,7 +50,7 @@ const Contacts = () => {
 
   return (
     <>
-      <Typography variant="h5">Contacts</Typography>
+      <Typography variant="h5">Enter your contacts</Typography>
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           {...register('email')}

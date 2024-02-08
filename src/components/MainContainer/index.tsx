@@ -1,11 +1,11 @@
 import Container from '@mui/material/Container'
 import { useLocation } from 'react-router-dom'
 import theme from '@/theme/theme'
-import { Paths } from '@/constants'
+import { PATHS } from '@/constants'
 
 const MainContainer = ({ children, ...props }: React.PropsWithChildren) => {
   const { pathname } = useLocation()
-  const pathnameResult = pathname === Paths.result
+  const pathnameResult = pathname === PATHS.result
 
   return (
     <Container

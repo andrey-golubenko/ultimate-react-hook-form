@@ -6,7 +6,11 @@ const TextInput: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
     <TextField
       sx={{
         '& .MuiInputBase-root .MuiInputBase-input': { padding: '8px' },
-        '& .MuiFormLabel-root': { fontSize: '21px', lineHeight: 'normal' }
+        '& .MuiFormLabel-root': {
+          fontSize: '21px',
+          lineHeight: 'normal',
+          top: '-3px'
+        }
       }}
       variant="outlined"
       margin="normal"

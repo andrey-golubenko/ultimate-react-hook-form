@@ -11,30 +11,30 @@ const typography: TypographyOptions = {
   fontFamily: fonts.mulish,
   h1: {
     fontFamily: fonts.trirong,
-    fontSize: 40,
+    fontSize: 36,
     lineHeight: '42px'
   },
   h2: {
     fontFamily: fonts.trirong,
-    fontSize: 34,
+    fontSize: 30,
     lineHeight: '36px'
   },
   h3: {
     fontFamily: fonts.trirong,
-    fontSize: 30,
+    fontSize: 26,
     lineHeight: '26px'
   },
   h4: {
     fontFamily: fonts.trirong,
-    fontSize: 28,
+    fontSize: 24,
     lineHeight: '20px'
   },
   body1: {
-    fontSize: 26,
+    fontSize: 22,
     lineHeight: '20px'
   },
   body2: {
-    fontSize: 24,
+    fontSize: 20,
     lineHeight: '18px'
   }
 }

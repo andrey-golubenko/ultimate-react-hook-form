@@ -3,6 +3,7 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import getVideoId from 'get-video-id'
 import ResponsiveEmbed from 'react-responsive-embed'
+import getNormalizedFieldName from '../helpers'
 
 interface IResultTableBody {
   entry: [string, string]
@@ -10,13 +11,15 @@ interface IResultTableBody {
 
 const ResultTableBody: FC<IResultTableBody> = ({ entry }) => {
   const { id: videoID } = getVideoId(entry[1])
+  const fieldName = getNormalizedFieldName(entry[0])
+  const fieldValue = entry[1].toString()
 
   return (
-    <TableRow key={entry[0]} sx={{ fontSize: '20px' }}>
-      <TableCell>{entry[0]}</TableCell>
+    <TableRow sx={{ fontSize: '20px' }}>
+      <TableCell>{fieldName}</TableCell>
       <TableCell align="right" sx={{ width: videoID ? '12.5rem' : 'inherit' }}>
         {!videoID ? (
-          entry[1].toString()
+          fieldValue
         ) : (
           <ResponsiveEmbed
             tabIndex={-1}

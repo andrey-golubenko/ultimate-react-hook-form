@@ -1,5 +1,5 @@
-export const Paths = {
-  root: '/',
+export const PATHS = {
+  personal_information: '/',
   contacts: '/contacts',
   password: '/password',
   files: '/files',
@@ -7,6 +7,15 @@ export const Paths = {
   result: '/result',
   notFound: '*'
 }
+
+// export const FORM_SECTIONS = {
+//   'Personal information': PATHS.root,
+//   'Contacts ': PATHS.contacts,
+//   'Password ': PATHS.password,
+//   'Files ': PATHS.files,
+//   'Video ': PATHS.video,
+//   'Result ': PATHS.result
+// }
 
 // export const MAX_FILE_SIZE = 102400 // 100Kb
 export const MAX_FILE_SIZE = 1024 * 100

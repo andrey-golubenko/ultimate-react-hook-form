@@ -7,7 +7,7 @@ import CustomForm from '../components/FormComponents/CustomForm'
 import FileInput from '../components/FormComponents/FileInput'
 import PrimaryButton from '../components/PrimaryButton'
 import { IFormFields, useData } from '../HOC/DataContex'
-import { Paths } from '../constants'
+import { PATHS } from '../constants'
 import { schemaFiles } from '../Yup/validatingSchemas'
 
 type FilesType = Pick<IFormFields, 'loadFiles'>
@@ -31,12 +31,12 @@ const Files = () => {
 
   const onSubmit = (data: FilesType) => {
     setFormValue(data)
-    navigate(Paths.video)
+    navigate(PATHS.video)
   }
 
   return (
     <>
-      <Typography component="h5">Files</Typography>
+      <Typography variant="h5">Upload your files</Typography>
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <FileInput
           name="loadFiles"

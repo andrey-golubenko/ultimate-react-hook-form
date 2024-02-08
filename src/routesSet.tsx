@@ -2,7 +2,7 @@ import PersonalInfo from './pages/PersonalInfo'
 import Cotacts from './pages/Contacts'
 import Files from './pages/Files'
 import Result from './pages/Result'
-import { Paths } from './constants'
+import { PATHS } from './constants'
 import Password from './pages/Password'
 import NotFoudPage from './pages/NotFoudPage'
 import ErrorPage from './pages/ErrorPage'
@@ -18,42 +18,42 @@ type SingleRoute = {
 const routesSet: SingleRoute[] = [
   {
     index: true,
-    path: Paths.root,
+    path: PATHS.root,
     component: PersonalInfo,
     errorComponent: ErrorPage
   },
   {
     index: true,
-    path: Paths.contacts,
+    path: PATHS.contacts,
     component: Cotacts,
     errorComponent: ErrorPage
   },
   {
     index: true,
-    path: Paths.password,
+    path: PATHS.password,
     component: Password,
     errorComponent: ErrorPage
   },
   {
     index: true,
-    path: Paths.files,
+    path: PATHS.files,
     component: Files,
     errorComponent: ErrorPage
   },
   {
     index: true,
-    path: Paths.video,
+    path: PATHS.video,
     component: Video,
     errorComponent: ErrorPage
   },
   {
     index: true,
-    path: Paths.result,
+    path: PATHS.result,
     component: Result,
     errorComponent: ErrorPage
   },
   {
-    path: Paths.notFound,
+    path: PATHS.notFound,
     component: NotFoudPage,
     errorComponent: ErrorPage
   }

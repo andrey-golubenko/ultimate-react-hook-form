@@ -7,7 +7,7 @@ import CustomForm from '../components/FormComponents/CustomForm'
 import TextInput from '../components/FormComponents/TextInput'
 import PrimaryButton from '../components/PrimaryButton'
 import { PersonalInfoType, schemaPersonalInfo } from '../Yup/validatingSchemas'
-import { Paths } from '../constants'
+import { PATHS } from '../constants'
 
 const PersonalInfo = () => {
   const { formData, setFormValue } = useData()
@@ -27,12 +27,12 @@ const PersonalInfo = () => {
 
   const onSubmit = (data: IFormFields) => {
     setFormValue(data)
-    navigate(Paths.contacts)
+    navigate(PATHS.contacts)
   }
 
   return (
     <>
-      <Typography variant="h5">Personal Information</Typography>
+      <Typography variant="h5">Enter your personal information</Typography>
       <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           {...register('firstName')}
