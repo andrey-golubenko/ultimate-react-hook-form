@@ -1,10 +1,11 @@
+import { FC } from 'react'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 
-const Footer = () => (
+const Footer: FC = () => (
   <Paper
     component="footer"
-    elevation={7}
+    elevation={8}
     sx={{
       py: 3,
       px: 2,

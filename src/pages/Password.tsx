@@ -1,17 +1,15 @@
+import { forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Typography from '@mui/material/Typography'
-import CustomForm from '../components/FormComponents/CustomForm'
+import CustomForm from '@/Components/FormComponents/CustomForm'
+import PasswordInput from '@/Components/FormComponents/PasswordInput'
+import NavButtons from '@/Components/NavButtons'
 import { useData } from '../HOC/DataContex'
 import { PasswordType, shemaPassword } from '../Yup/validatingSchemas'
-import PasswordInput from '../components/FormComponents/PasswordInput'
-import PrimaryButton from '../components/PrimaryButton'
-import { PATHS } from '../constants'
 
-const Password = () => {
+const Password = forwardRef((_, ref) => {
   const { formData, setFormValue } = useData()
-  const navigate = useNavigate()
   const {
     handleSubmit,
     register,
@@ -27,7 +25,6 @@ const Password = () => {
 
   const onSubmit = (data: PasswordType) => {
     setFormValue(data)
-    navigate(PATHS.files)
   }
 
   return (
@@ -51,10 +48,10 @@ const Password = () => {
           error={!!errors?.passwordConfirmation}
           helperText={errors?.passwordConfirmation?.message}
         />
-        <PrimaryButton>Next</PrimaryButton>
+        <NavButtons ref={ref} />
       </CustomForm>
     </>
   )
-}
+})
 
 export default Password

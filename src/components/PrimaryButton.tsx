@@ -1,25 +1,44 @@
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 import Button from '@mui/material/Button'
-import React, { FC } from 'react'
 import theme from '@/theme/theme'
 
-interface IPrimaryButton extends React.PropsWithChildren {
-  onClick?: () => void
+interface INextButton extends React.PropsWithChildren {
+  onClick?: (event: React.MouseEvent) => Promise<void>
+  ref?: React.ForwardedRef<unknown>
+  buttonId?: string
 }
 
-const PrimaryButton: FC<IPrimaryButton> = ({
-  children,
-  ...props
-}: React.PropsWithChildren) => (
-  <Button
-    variant="contained"
-    fullWidth
-    type="submit"
-    color="primary"
-    sx={{ margin: theme.spacing(3, 0, 2) }}
-    {...props}
-  >
-    {children}
-  </Button>
+const PrimaryButton: React.ForwardRefExoticComponent<INextButton> = forwardRef(
+  (
+    {
+      children,
+      buttonId = 'submit',
+      ...props
+    }: React.PropsWithChildren & { buttonId?: string },
+    ref
+  ) => {
+    const buttonLowerRef = useRef<HTMLButtonElement>(null)
+
+    useImperativeHandle(ref, () => ({
+      click: () => {
+        buttonLowerRef?.current?.click()
+      }
+    }))
+
+    return (
+      <Button
+        id={buttonId}
+        variant="contained"
+        type="submit"
+        color="primary"
+        ref={buttonLowerRef}
+        sx={{ margin: theme.spacing(3, 0, 2), width: '30%' }}
+        {...props}
+      >
+        {children}
+      </Button>
+    )
+  }
 )
 
 export default PrimaryButton

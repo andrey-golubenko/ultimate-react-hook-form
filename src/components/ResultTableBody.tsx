@@ -3,16 +3,16 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import getVideoId from 'get-video-id'
 import ResponsiveEmbed from 'react-responsive-embed'
-import getNormalizedFieldName from '../helpers'
+import { getNormalizedFieldName } from '../helpers'
 
 interface IResultTableBody {
-  entry: [string, string]
+  field: [string, string]
 }
 
-const ResultTableBody: FC<IResultTableBody> = ({ entry }) => {
-  const { id: videoID } = getVideoId(entry[1])
-  const fieldName = getNormalizedFieldName(entry[0])
-  const fieldValue = entry[1].toString()
+const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
+  const { id: videoID } = getVideoId(field[1])
+  const fieldName = getNormalizedFieldName(field[0])
+  const fieldValue = field[1].toString()
 
   return (
     <TableRow sx={{ fontSize: '20px' }}>

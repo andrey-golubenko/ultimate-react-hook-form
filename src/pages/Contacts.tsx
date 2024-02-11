@@ -1,105 +1,102 @@
 import { Controller, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Typography from '@mui/material/Typography'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import parsePhoneNumberFromString from 'libphonenumber-js'
-import CustomForm from '../components/FormComponents/CustomForm'
-import TextInput from '../components/FormComponents/TextInput'
+import { forwardRef } from 'react'
+import CustomForm from '@/Components/FormComponents/CustomForm'
+import TextInput from '@/Components/FormComponents/TextInput'
 import { ContactsType, schemaContacts } from '../Yup/validatingSchemas'
-import PrimaryButton from '../components/PrimaryButton'
 import { useData } from '../HOC/DataContex'
-import { PATHS } from '../constants'
+import NavButtons from '../components/NavButtons'
 
-const Contacts = () => {
-  const { formData, setFormValue } = useData()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    control
-  } = useForm<ContactsType>({
-    defaultValues: {
-      email: formData?.email,
-      hasPhone: formData?.hasPhone,
-      phoneNumber: formData?.phoneNumber
-    },
-    mode: 'onBlur',
-    resolver: yupResolver(schemaContacts)
-  })
+const Contacts: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
+  forwardRef((_, ref) => {
+    const { formData, setFormValue } = useData()
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      watch,
+      control
+    } = useForm<ContactsType>({
+      defaultValues: {
+        email: formData?.email,
+        hasPhone: formData?.hasPhone,
+        phoneNumber: formData?.phoneNumber
+      },
+      mode: 'onBlur',
+      resolver: yupResolver(schemaContacts)
+    })
 
-  const hasPhone = watch('hasPhone')
+    const hasPhone = watch('hasPhone')
 
-  const navigate = useNavigate()
-
-  const onSubmit = (data: ContactsType) => {
-    setFormValue(data)
-    navigate(PATHS.password)
-  }
-
-  const normalizePhoneNumber = (value: string) => {
-    const phoneNumber = parsePhoneNumberFromString(value)
-    if (!phoneNumber) {
-      return value
+    const onSubmit = (data: ContactsType) => {
+      setFormValue(data)
     }
 
-    return phoneNumber.formatInternational()
-  }
+    const normalizePhoneNumber = (value: string) => {
+      const phoneNumber = parsePhoneNumberFromString(value)
+      if (!phoneNumber) {
+        return value
+      }
 
-  return (
-    <>
-      <Typography variant="h5">Enter your contacts</Typography>
-      <CustomForm onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          {...register('email')}
-          id="email"
-          name="email"
-          type="email"
-          label="Email"
-          required
-          error={!!errors?.email}
-          helperText={errors?.email?.message}
-        />
+      return phoneNumber.formatInternational()
+    }
 
-        <Controller
-          name="hasPhone"
-          control={control}
-          render={({ field }) => (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  id="hasPhone"
-                  onChange={(e) => field.onChange(e.target.checked)}
-                  checked={field.value}
-                  color="primary"
-                />
-              }
-              label="Do you have a phone?"
+    return (
+      <>
+        <Typography variant="h5">Enter your contacts</Typography>
+        <CustomForm onSubmit={handleSubmit(onSubmit)}>
+          <TextInput
+            {...register('email')}
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            required
+            error={!!errors?.email}
+            helperText={errors?.email?.message}
+          />
+
+          <Controller
+            name="hasPhone"
+            control={control}
+            render={({ field }) => (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="hasPhone"
+                    onChange={(e) => field.onChange(e.target.checked)}
+                    checked={field.value}
+                    color="primary"
+                  />
+                }
+                label="Do you have a phone?"
+              />
+            )}
+          />
+
+          {hasPhone && (
+            <TextInput
+              {...register('phoneNumber')}
+              id="phoneNumber"
+              name="phoneNumber"
+              label="PhoneNumber"
+              type="tel"
+              onInput={(event) => {
+                // eslint-disable-next-line no-param-reassign, prettier/prettier
+              (event.target as HTMLInputElement).value = normalizePhoneNumber((event.target as HTMLInputElement).value)
+              }}
+              error={!!errors.phoneNumber}
+              helperText={errors?.phoneNumber?.message}
             />
           )}
-        />
-
-        {hasPhone && (
-          <TextInput
-            {...register('phoneNumber')}
-            id="phoneNumber"
-            name="phoneNumber"
-            label="PhoneNumber"
-            type="tel"
-            onInput={(event) => {
-              // eslint-disable-next-line no-param-reassign, prettier/prettier
-              (event.target as HTMLInputElement).value = normalizePhoneNumber((event.target as HTMLInputElement).value)
-            }}
-            error={!!errors.phoneNumber}
-            helperText={errors?.phoneNumber?.message}
-          />
-        )}
-        <PrimaryButton>Next</PrimaryButton>
-      </CustomForm>
-    </>
-  )
-}
+          <NavButtons ref={ref} />
+        </CustomForm>
+      </>
+    )
+  })
 
 export default Contacts

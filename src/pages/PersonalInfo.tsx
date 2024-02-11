@@ -1,15 +1,14 @@
+import { forwardRef } from 'react'
 import Typography from '@mui/material/Typography'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigate } from 'react-router-dom'
+import CustomForm from '@/Components/FormComponents/CustomForm'
+import TextInput from '@/Components/FormComponents/TextInput'
+import PrimaryButton from '@/Components/PrimaryButton'
 import { IFormFields, useData } from '../HOC/DataContex'
-import CustomForm from '../components/FormComponents/CustomForm'
-import TextInput from '../components/FormComponents/TextInput'
-import PrimaryButton from '../components/PrimaryButton'
 import { PersonalInfoType, schemaPersonalInfo } from '../Yup/validatingSchemas'
-import { PATHS } from '../constants'
 
-const PersonalInfo = () => {
+const PersonalInfo = forwardRef((_, ref) => {
   const { formData, setFormValue } = useData()
   const {
     register,
@@ -23,11 +22,9 @@ const PersonalInfo = () => {
     mode: 'onBlur',
     resolver: yupResolver(schemaPersonalInfo)
   })
-  const navigate = useNavigate()
 
   const onSubmit = (data: IFormFields) => {
     setFormValue(data)
-    navigate(PATHS.contacts)
   }
 
   return (
@@ -52,10 +49,12 @@ const PersonalInfo = () => {
           error={!!errors?.lastName}
           helperText={errors?.lastName?.message}
         />
-        <PrimaryButton>Next</PrimaryButton>
+        <PrimaryButton buttonId="next" ref={ref}>
+          Next {'>'}
+        </PrimaryButton>
       </CustomForm>
     </>
   )
-}
+})
 
 export default PersonalInfo

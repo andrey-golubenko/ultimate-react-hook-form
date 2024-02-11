@@ -1,13 +1,13 @@
-import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
+import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
+import Stack from '@mui/material/Stack'
 import Swal from 'sweetalert2'
 import { nanoid } from 'nanoid'
-import Stack from '@mui/material/Stack'
 import FilesList from '@/Components/FileList'
 import PrimaryButton from '@/Components/PrimaryButton'
 import ResultTableBody from '@/Components/ResultTableBody'
@@ -18,11 +18,11 @@ import { PATHS } from '../constants'
 const Result = () => {
   const { formData } = useData()
 
-  const entries = Object.entries(formData).filter(
-    (entry) =>
-      entry[0] !== 'loadFiles' &&
-      entry[0] !== 'hasPhone' &&
-      entry[0] !== 'passwordConfirmation'
+  const fields = Object.entries(formData).filter(
+    ([fieldName]) =>
+      fieldName !== 'loadFiles' &&
+      fieldName !== 'hasPhone' &&
+      fieldName !== 'passwordConfirmation'
   )
 
   const { loadFiles } = formData
@@ -36,7 +36,9 @@ const Result = () => {
       )
     }
 
-    entries.forEach((entry) => nativeFormData.append(entry[0], entry[1]))
+    fields.forEach(([fieldName, fieldValue]) =>
+      nativeFormData.append(fieldName, fieldValue)
+    )
 
     const res = await fetch('http://localhost:4000/', {
       method: 'POST',
@@ -59,9 +61,9 @@ const Result = () => {
             <ResultTableHead />
           </TableHead>
           <TableBody>
-            {!!entries.length &&
-              entries.map((entry) => (
-                <ResultTableBody key={nanoid()} entry={entry} />
+            {!!fields.length &&
+              fields.map((field) => (
+                <ResultTableBody key={nanoid()} field={field} />
               ))}
           </TableBody>
         </Table>

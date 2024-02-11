@@ -1,16 +1,14 @@
+import { forwardRef } from 'react'
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Typography from '@mui/material/Typography'
 import CustomForm from '@/Components/FormComponents/CustomForm'
 import VideoInput from '@/Components/FormComponents/VideoInput'
-import PrimaryButton from '@/Components/PrimaryButton'
-import { PATHS } from '../constants'
+import NavButtons from '@/Components/NavButtons'
 import { useData } from '../HOC/DataContex'
 import { VideoType, videoSchema } from '../Yup/validatingSchemas'
 
-const Video = () => {
-  const navigate = useNavigate()
+const Video = forwardRef((_, ref) => {
   const { formData, setFormValue } = useData()
   const { video } = formData
   const {
@@ -26,7 +24,6 @@ const Video = () => {
 
   const onSubmit = (data: VideoType) => {
     setFormValue(data)
-    navigate(PATHS.result)
   }
 
   return (
@@ -41,10 +38,10 @@ const Video = () => {
           validatErrors={errors?.video}
           watch={watch}
         />
-        <PrimaryButton>Next</PrimaryButton>
+        <NavButtons ref={ref} />
       </CustomForm>
     </>
   )
-}
+})
 
 export default Video
