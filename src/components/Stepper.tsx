@@ -9,7 +9,8 @@ const Stepper: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
     container
     sx={{
       justifyContent: 'space-around',
-      width: '85%'
+      width: '85%',
+      flexWrap: 'wrap'
     }}
   >
     {PATHS &&
@@ -21,7 +22,11 @@ const Stepper: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
             pathName.charAt(0).toUpperCase() + pathName.slice(1)
 
           return (
-            <Grid key={nanoid()} item>
+            <Grid
+              key={nanoid()}
+              item
+              sx={{ ':not(:last-child)': { marginRight: '1rem' } }}
+            >
               <NavLink
                 end
                 to={url}

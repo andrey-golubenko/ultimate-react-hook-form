@@ -29,6 +29,7 @@ const CustomForm = ({
     const eventSubmitter = (event?.nativeEvent as HTMLFormElement)?.submitter.id
     const url = getDirection(pathname, eventSubmitter)
     event?.preventDefault()
+
     onSubmit()
 
     navigate(url)

@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs'
 import { createContext, useContext, useMemo, useState } from 'react'
 
 const DataContex = createContext<IUseData>({
@@ -6,6 +7,8 @@ const DataContex = createContext<IUseData>({
 })
 
 export interface IFormFields {
+  address?: string
+  birthDate?: Dayjs | Date | string | null
   firstName?: string
   lastName?: string
   email?: string

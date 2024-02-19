@@ -5,7 +5,9 @@ import { PATHS } from '@/constants'
 
 const MainContainer = ({ children, ...props }: React.PropsWithChildren) => {
   const { pathname } = useLocation()
-  const pathnameResult = pathname === PATHS.result
+  const pathnameResult =
+    // pathname === PATHS.result || pathname === PATHS.personal_information
+    pathname === PATHS.result
 
   return (
     <Container

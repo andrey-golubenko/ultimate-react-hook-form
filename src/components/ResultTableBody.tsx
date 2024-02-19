@@ -10,9 +10,12 @@ interface IResultTableBody {
 }
 
 const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
-  const { id: videoID } = getVideoId(field[1])
-  const fieldName = getNormalizedFieldName(field[0])
-  const fieldValue = field[1].toString()
+  const [name, value] = field
+  const videoID = name === 'video' ? getVideoId(value).id : ''
+  const outputValue =
+    name === 'birthDate' ? new Date(value).toLocaleDateString() : value
+  const fieldName = getNormalizedFieldName(name)
+  const fieldValue = outputValue.toString()
 
   return (
     <TableRow sx={{ fontSize: '20px' }}>

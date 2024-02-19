@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
 import * as yup from 'yup'
 import YupPassword from 'yup-password'
 import getVideoId from 'get-video-id'
@@ -7,7 +6,10 @@ import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '../constants'
 
 YupPassword(yup)
 
-export type PersonalInfoType = Pick<IFormFields, 'firstName' | 'lastName'>
+export type PersonalInfoType = Pick<
+  IFormFields,
+  'firstName' | 'lastName' | 'address' | 'birthDate'
+>
 
 export type ContactsType = Pick<
   IFormFields,
@@ -32,6 +34,8 @@ export const schemaPersonalInfo: yup.ObjectSchema<
   PersonalInfoType,
   ''
 > = yup.object().shape({
+  address: yup.string(),
+  birthDate: yup.date(),
   firstName: yup
     .string()
     .matches(stringRegExp, 'First name shoud not contain numbers!')
