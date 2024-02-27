@@ -1,7 +1,8 @@
+import { FC } from 'react'
 import { Cancel, CheckCircle } from '@mui/icons-material'
-import theme from '../theme/theme'
+import theme from '@/theme/theme'
 
-const CheckIcon = ({ valid }: { valid: boolean }) =>
+const CheckIcon: FC<{ valid: boolean }> = ({ valid }) =>
   valid ? (
     <CheckCircle
       sx={{

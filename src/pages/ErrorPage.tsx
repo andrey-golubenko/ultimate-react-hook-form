@@ -1,9 +1,9 @@
+import { FC } from 'react'
 import {
   isRouteErrorResponse,
   useNavigate,
   useRouteError
 } from 'react-router-dom'
-
 import { Button, Stack, Typography } from '@mui/material'
 
 type ErorrType = {
@@ -12,7 +12,7 @@ type ErorrType = {
   statusText: string
 }
 
-const ErrorPage = () => {
+const ErrorPage: FC = () => {
   const error = useRouteError() as ErorrType
   const navigate = useNavigate()
   const goBack = () => navigate(-1)

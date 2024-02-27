@@ -1,6 +1,7 @@
 export const PATHS = {
   personal_information: '/',
   contacts: '/contacts',
+  education: '/education',
   password: '/password',
   files: '/files',
   video: '/video',

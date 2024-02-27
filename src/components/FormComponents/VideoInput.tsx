@@ -9,7 +9,7 @@ import {
 import getVideoId from 'get-video-id'
 import Stack from '@mui/material/Stack'
 import ResponsiveEmbed from 'react-responsive-embed'
-import TextInput from './TextInput'
+import TextInput from '@/Components/FormComponents/TextInput'
 
 interface IVideoInput {
   name: string

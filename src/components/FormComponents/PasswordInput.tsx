@@ -5,9 +5,10 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { bindFocus, usePopupState } from 'material-ui-popup-state/hooks'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import striptags from 'striptags'
-import TextInput from './TextInput'
-import InputPoper from '../InputPoper'
-import { IFormFields, useData } from '../../HOC/DataContex'
+import TextInput from '@/Components/FormComponents/TextInput'
+import InputPoper from '@/Components/InputPoper'
+import { useData } from '@/HOC/DataContex'
+import { IFormFields } from '@/types'
 
 interface IPasswordInput {
   register: UseFormRegister<FieldValues>
@@ -40,18 +41,18 @@ const PasswordInput: FC<IPasswordInput> = ({
   const { onBlur: bindFocusOnBlur, ...restBindFocus } = bindFocus(popupState)
   const { onBlur: registerOnBlur, ...restRegister } = register(name)
 
-  const handleInput = (e: FormEvent<HTMLDivElement>) => {
-    const clearedValue = striptags((e.target as HTMLInputElement).value)
+  const handleInput = (event: FormEvent<HTMLDivElement>) => {
+    const clearedValue = striptags((event.target as HTMLInputElement).value)
     setPasswordValue(clearedValue)
   }
 
-  const handleBlur = (e: FocusEvent<Element, Element>) => {
-    const clearedValue = striptags((e.target as HTMLInputElement).value)
+  const handleBlur = (event: FocusEvent<Element, Element>) => {
+    const clearedValue = striptags((event.target as HTMLInputElement).value)
 
     setFormValue({ [name]: clearedValue })
-    registerOnBlur(e)
+    registerOnBlur(event)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    showValidation ? bindFocusOnBlur(e) : null
+    showValidation ? bindFocusOnBlur(event) : null
   }
 
   const passwordInputValue =

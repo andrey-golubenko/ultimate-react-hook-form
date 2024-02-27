@@ -1,29 +1,18 @@
 import * as yup from 'yup'
 import YupPassword from 'yup-password'
 import getVideoId from 'get-video-id'
-import { IFormFields } from '../HOC/DataContex'
-import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '../constants'
+import dayjs from 'dayjs'
+import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '@/constants'
+import {
+  PersonalInfoType,
+  ContactsType,
+  PasswordType,
+  FilesType,
+  VideoType,
+  EducationType
+} from '@/types'
 
 YupPassword(yup)
-
-export type PersonalInfoType = Pick<
-  IFormFields,
-  'firstName' | 'lastName' | 'address' | 'birthDate'
->
-
-export type ContactsType = Pick<
-  IFormFields,
-  'email' | 'hasPhone' | 'phoneNumber'
->
-
-export type PasswordType = Pick<
-  IFormFields,
-  'password' | 'passwordConfirmation'
->
-
-export type FilesType = Pick<IFormFields, 'loadFiles'>
-
-export type VideoType = Pick<IFormFields, 'video'>
 
 const stringRegExp = /^([^0-9]*)$/
 const phoneRegExp = /^([^a-zA-Z]*)$/
@@ -35,7 +24,7 @@ export const schemaPersonalInfo: yup.ObjectSchema<
   ''
 > = yup.object().shape({
   address: yup.string(),
-  birthDate: yup.date(),
+  birthDate: yup.date().max(new Date(), "You can't be born in the future!"),
   firstName: yup
     .string()
     .matches(stringRegExp, 'First name shoud not contain numbers!')
@@ -68,6 +57,29 @@ export const schemaContacts: yup.ObjectSchema<
         })
         .required("The field can't be empty!")
   })
+})
+
+// @ts-ignore
+export const schemaEducation: yup.ObjectSchema<
+  EducationType,
+  yup.AnyObject,
+  EducationType,
+  ''
+> = yup.object().shape({
+  education: yup.array().of(
+    yup.object().shape({
+      start: yup.date(),
+      end: yup
+        .date()
+        .min(
+          yup.ref('start'),
+          ({ min }) =>
+            `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
+        ),
+      specialty: yup.string(),
+      educational_institution: yup.string()
+    })
+  )
 })
 
 export const shemaPassword: yup.ObjectSchema<

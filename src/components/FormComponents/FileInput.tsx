@@ -1,6 +1,10 @@
 import { FC, useCallback, useEffect } from 'react'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 import { CloudUpload, Archive } from '@mui/icons-material'
 import { DropEvent, FileRejection, useDropzone } from 'react-dropzone'
 import {
@@ -11,10 +15,9 @@ import {
   UseFormSetValue,
   UseFormWatch
 } from 'react-hook-form'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { nanoid } from 'nanoid'
+import FilesList from '@/Components/FileList'
 import { MAX_FILE_SIZE } from '@/constants'
-import FilesList from '../FileList'
 
 interface IFileInput {
   name: string
@@ -85,7 +88,7 @@ const FileInput: FC<IFileInput> = ({
 
   const { onBlur, onChange } = register(name)
 
-  const wordEnd = hasDuplicate && hasDuplicate.length > 1 ? 's' : ''
+  const wordEnd = hasDuplicate && hasDuplicate.length > 0 ? 's' : ''
 
   return (
     <>

@@ -1,7 +1,14 @@
+import {
+  BaseSyntheticEvent,
+  FC,
+  FormHTMLAttributes,
+  useEffect,
+  useState
+} from 'react'
 import { styled } from '@mui/material/styles'
-import { BaseSyntheticEvent, FormHTMLAttributes } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getDirection } from '@/helpers'
+import { useData } from '@/HOC/DataContex'
 
 type PropsCustomForm = FormHTMLAttributes<HTMLFormElement> & {
   onSubmit: (
@@ -9,31 +16,40 @@ type PropsCustomForm = FormHTMLAttributes<HTMLFormElement> & {
   ) => Promise<void>
 }
 
-const CustomForm = ({
-  children,
-  onSubmit,
-  ...props
-}: React.PropsWithChildren<PropsCustomForm>) => {
+const CustomForm: FC<PropsCustomForm> = ({ children, onSubmit, ...props }) => {
   const Form = styled('form')(({ theme }) => ({
     width: '100%',
     marginTop: theme.spacing(1)
   }))
 
+  const { formData, setFormValue } = useData()
+  const { isDataReceived } = formData
+
   const { pathname } = useLocation()
 
   const navigate = useNavigate()
+
+  const [navigateTo, setNavigateTo] = useState<string>('')
 
   const onCustomSubmit = (
     event: BaseSyntheticEvent<object, unknown, unknown> | undefined
   ) => {
     const eventSubmitter = (event?.nativeEvent as HTMLFormElement)?.submitter.id
     const url = getDirection(pathname, eventSubmitter)
+
+    setNavigateTo(url)
+
     event?.preventDefault()
 
     onSubmit()
-
-    navigate(url)
   }
+
+  useEffect(() => {
+    if (isDataReceived && navigateTo) {
+      navigate(navigateTo)
+      setFormValue({ isDataReceived: false })
+    }
+  }, [isDataReceived, navigate, navigateTo, setFormValue])
 
   return (
     <Form noValidate {...props} onSubmit={onCustomSubmit}>

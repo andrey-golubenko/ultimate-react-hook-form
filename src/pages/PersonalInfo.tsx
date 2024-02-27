@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
-import Typography from '@mui/material/Typography'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import dayjs from 'dayjs'
 import CustomForm from '@/Components/FormComponents/CustomForm'
@@ -9,10 +9,13 @@ import SelectInput from '@/Components/FormComponents/SelectInput'
 import TextInput from '@/Components/FormComponents/TextInput'
 import PrimaryButton from '@/Components/PrimaryButton'
 import DatePickerInput from '@/Components/FormComponents/DatePickerInput'
-import { IFormFields, useData } from '../HOC/DataContex'
-import { PersonalInfoType, schemaPersonalInfo } from '../Yup/validatingSchemas'
+import { useData } from '@/HOC/DataContex'
+import { schemaPersonalInfo } from '@/Yup/validatingSchemas'
+import { IFormFields, PersonalInfoType } from '@/types'
 
-const PersonalInfo = forwardRef((_, ref) => {
+const PersonalInfo: React.ForwardRefExoticComponent<
+  React.RefAttributes<unknown>
+> = forwardRef((_, ref) => {
   const { formData, setFormValue } = useData()
   const {
     register,
@@ -21,25 +24,26 @@ const PersonalInfo = forwardRef((_, ref) => {
     formState: { errors }
   } = useForm<PersonalInfoType>({
     defaultValues: {
+      address: formData?.address || '',
       firstName: formData?.firstName,
       lastName: formData?.lastName,
-      address: formData?.address || '',
       birthDate: formData?.birthDate || null
     },
     mode: 'onBlur',
     resolver: yupResolver(schemaPersonalInfo)
   })
 
-  const onSubmit = (data: IFormFields) => {
+  const onFormSubmit = (data: IFormFields) => {
     const { birthDate } = data
-    setFormValue({ ...data, birthDate: dayjs(birthDate) })
+    setFormValue({ ...data, birthDate: dayjs(birthDate), isDataReceived: true })
   }
+
   return (
     <>
       <Typography variant="h5" marginBottom="1rem">
         Enter your personal information
       </Typography>
-      <CustomForm onSubmit={handleSubmit(onSubmit)}>
+      <CustomForm onSubmit={handleSubmit(onFormSubmit)}>
         <Stack
           flexDirection="row"
           justifyContent="space-between"
@@ -62,10 +66,6 @@ const PersonalInfo = forwardRef((_, ref) => {
             label="First Name"
             error={!!errors?.firstName}
             helperText={errors?.firstName?.message}
-            sx={{
-              '& .MuiOutlinedInput-input': { padding: '6px 8px' },
-              '& .MuiFormLabel-root': { top: '-9px' }
-            }}
           />
           <TextInput
             {...register('lastName')}
@@ -75,10 +75,6 @@ const PersonalInfo = forwardRef((_, ref) => {
             label="Last Name"
             error={!!errors?.lastName}
             helperText={errors?.lastName?.message}
-            sx={{
-              '& .MuiOutlinedInput-input': { padding: '6px 8px' },
-              '& .MuiFormLabel-root': { top: '-9px' }
-            }}
           />
         </Stack>
         <PrimaryButton buttonId="next" ref={ref}>

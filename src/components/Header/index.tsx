@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import theme from '@/theme/theme'
-import Stepper from '../Stepper'
+import Stepper from '@/Components/Stepper'
 
 const Header: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
   <Stack component="header" sx={{ marginBottom: '3rem' }}>

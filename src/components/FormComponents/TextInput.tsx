@@ -1,22 +1,27 @@
-import TextField, { TextFieldProps } from '@mui/material/TextField'
 import { ForwardRefExoticComponent, forwardRef } from 'react'
+import TextField, { TextFieldProps } from '@mui/material/TextField'
 
-const TextInput: ForwardRefExoticComponent<TextFieldProps> = forwardRef(
-  (props, ref) => (
+type ITextInput = TextFieldProps & { percentageWidth?: string }
+
+const TextInput: ForwardRefExoticComponent<ITextInput> = forwardRef(
+  ({ percentageWidth, ...restProps }, ref) => (
     <TextField
       sx={{
-        '& .MuiInputBase-root .MuiInputBase-input': { padding: '8px' },
+        width: percentageWidth,
+        '& .MuiInputBase-input.MuiOutlinedInput-input': {
+          padding: '6px 8px'
+        },
         '& .MuiFormLabel-root': {
           fontSize: '21px',
           lineHeight: 'normal',
-          top: '-3px'
+          top: '-6px'
         }
       }}
       variant="outlined"
       margin="normal"
       fullWidth
       inputRef={ref}
-      {...props}
+      {...restProps}
     />
   )
 )

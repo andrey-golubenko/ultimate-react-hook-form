@@ -1,13 +1,14 @@
-import { ForwardRefExoticComponent, RefAttributes } from 'react'
-import PersonalInfo from './pages/PersonalInfo'
-import Cotacts from './pages/Contacts'
-import Files from './pages/Files'
-import Result from './pages/Result'
-import { PATHS } from './constants'
-import Password from './pages/Password'
-import NotFoudPage from './pages/NotFoudPage'
-import ErrorPage from './pages/ErrorPage'
-import Video from './pages/Video'
+import { FC, ForwardRefExoticComponent, RefAttributes } from 'react'
+import PersonalInfo from '@/pages/PersonalInfo'
+import Cotacts from '@/pages/Contacts'
+import Files from '@/pages/Files'
+import Result from '@/pages/Result'
+import { PATHS } from '@/constants'
+import Password from '@/pages/Password'
+import NotFoudPage from '@/pages/NotFoudPage'
+import ErrorPage from '@/pages/ErrorPage'
+import Video from '@/pages/Video'
+import Education from '@/pages/Education'
 
 type SingleRoute = {
   index?: boolean
@@ -15,7 +16,8 @@ type SingleRoute = {
   component:
     | ForwardRefExoticComponent<RefAttributes<unknown>>
     | (() => JSX.Element | null)
-  errorComponent: () => JSX.Element | null
+    | FC
+  errorComponent: (() => JSX.Element | null) | FC
 }
 
 const router: SingleRoute[] = [
@@ -29,6 +31,12 @@ const router: SingleRoute[] = [
     index: true,
     path: PATHS.contacts,
     component: Cotacts,
+    errorComponent: ErrorPage
+  },
+  {
+    index: true,
+    path: PATHS.education,
+    component: Education,
     errorComponent: ErrorPage
   },
   {

@@ -1,9 +1,13 @@
 import { FC } from 'react'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
 import getVideoId from 'get-video-id'
 import ResponsiveEmbed from 'react-responsive-embed'
-import { getNormalizedFieldName } from '../helpers'
+import dayjs from 'dayjs'
+import { nanoid } from 'nanoid'
+import { getNormalizedFieldName } from '@/helpers'
 
 interface IResultTableBody {
   field: [string, string]
@@ -13,7 +17,7 @@ const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
   const [name, value] = field
   const videoID = name === 'video' ? getVideoId(value).id : ''
   const outputValue =
-    name === 'birthDate' ? new Date(value).toLocaleDateString() : value
+    name === 'birthDate' ? dayjs(value).format('DD.MM.YYYY') : value
   const fieldName = getNormalizedFieldName(name)
   const fieldValue = outputValue.toString()
 
@@ -21,15 +25,31 @@ const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
     <TableRow sx={{ fontSize: '20px' }}>
       <TableCell>{fieldName}</TableCell>
       <TableCell align="right" sx={{ width: videoID ? '12.5rem' : 'inherit' }}>
-        {!videoID ? (
-          fieldValue
-        ) : (
+        {videoID && (
           <ResponsiveEmbed
             tabIndex={-1}
             src={`https://www.youtube.com/embed/${videoID}`}
             allowFullScreen
           />
         )}
+
+        {Array.isArray(value) &&
+          value?.map(
+            ({ start, end, specialty, educational_institution }, index) => (
+              <Stack key={nanoid()} alignItems="flex-end" mb={2}>
+                <Typography fontSize="1.2rem">
+                  {index + 1}) {dayjs(start).format('MM.YYYY')} -{' '}
+                  {dayjs(end).format('MM.YYYY')}
+                </Typography>
+                <Typography fontSize="1.2rem">{specialty}</Typography>
+                <Typography fontSize="1.2rem">
+                  {educational_institution}
+                </Typography>
+              </Stack>
+            )
+          )}
+
+        {!videoID && !Array.isArray(value) && fieldValue}
       </TableCell>
     </TableRow>
   )

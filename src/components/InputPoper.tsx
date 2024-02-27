@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material'
 import { PopupState, bindPopper } from 'material-ui-popup-state/hooks'
 import YupPassword from 'yup-password'
-import CheckIcon from './CheckIcon'
+import CheckIcon from '@/Components/CheckIcon'
 
 interface IInputPopper {
   popupState: PopupState

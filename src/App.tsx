@@ -1,15 +1,15 @@
 import './App.css'
+import { useRef } from 'react'
 import {
   RouterProvider,
   Route,
   createBrowserRouter,
   createRoutesFromElements
 } from 'react-router-dom'
-import { useRef } from 'react'
 import { nanoid } from 'nanoid'
 import Layout from '@/Components/Layout'
-import router from './router'
-import { PATHS } from './constants'
+import router from '@/router'
+import { PATHS } from '@/constants'
 
 function App() {
   const buttonRef = useRef<HTMLButtonElement>(null)

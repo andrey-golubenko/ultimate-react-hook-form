@@ -1,18 +1,17 @@
+import { FC } from 'react'
 import Container from '@mui/material/Container'
 import { useLocation } from 'react-router-dom'
 import theme from '@/theme/theme'
 import { PATHS } from '@/constants'
 
-const MainContainer = ({ children, ...props }: React.PropsWithChildren) => {
+const MainContainer: FC = ({ children, ...props }: React.PropsWithChildren) => {
   const { pathname } = useLocation()
-  const pathnameResult =
-    // pathname === PATHS.result || pathname === PATHS.personal_information
-    pathname === PATHS.result
+  const largeView = pathname === PATHS.result || pathname === PATHS.education
 
   return (
     <Container
       component="main"
-      maxWidth={pathnameResult ? 'sm' : 'xs'}
+      maxWidth={largeView ? 'sm' : 'xs'}
       sx={{
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(15),

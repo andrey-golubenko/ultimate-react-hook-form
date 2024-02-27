@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
@@ -12,20 +13,23 @@ import FilesList from '@/Components/FileList'
 import PrimaryButton from '@/Components/PrimaryButton'
 import ResultTableBody from '@/Components/ResultTableBody'
 import ResultTableHead from '@/Components/ResultTableHead'
-import { useData } from '../HOC/DataContex'
-import { PATHS } from '../constants'
+import { useData } from '@/HOC/DataContex'
+import { PATHS } from '@/constants'
 
-const Result = () => {
+const Result: FC = () => {
   const { formData } = useData()
 
   const fields = Object.entries(formData).filter(
     ([fieldName]) =>
+      Boolean(fieldName) &&
       fieldName !== 'loadFiles' &&
+      fieldName !== 'education' &&
       fieldName !== 'hasPhone' &&
-      fieldName !== 'passwordConfirmation'
+      fieldName !== 'passwordConfirmation' &&
+      fieldName !== 'isDataReceived'
   )
 
-  const { loadFiles } = formData
+  const { loadFiles, education } = formData
 
   const handleSubmit = async () => {
     const nativeFormData = new FormData()
@@ -34,6 +38,10 @@ const Result = () => {
       loadFiles.forEach((file) =>
         nativeFormData.append('files', file, file.name)
       )
+    }
+
+    if (education) {
+      nativeFormData.append('education', JSON.stringify(education))
     }
 
     fields.forEach(([fieldName, fieldValue]) =>

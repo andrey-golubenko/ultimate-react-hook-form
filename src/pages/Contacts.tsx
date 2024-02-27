@@ -1,15 +1,16 @@
+import { forwardRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Typography from '@mui/material/Typography'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import parsePhoneNumberFromString from 'libphonenumber-js'
-import { forwardRef } from 'react'
 import CustomForm from '@/Components/FormComponents/CustomForm'
 import TextInput from '@/Components/FormComponents/TextInput'
-import { ContactsType, schemaContacts } from '../Yup/validatingSchemas'
-import { useData } from '../HOC/DataContex'
-import NavButtons from '../components/NavButtons'
+import NavButtons from '@/Components/NavButtons'
+import { useData } from '@/HOC/DataContex'
+import { schemaContacts } from '@/Yup/validatingSchemas'
+import { ContactsType } from '../types'
 
 const Contacts: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
   forwardRef((_, ref) => {
@@ -32,8 +33,8 @@ const Contacts: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
 
     const hasPhone = watch('hasPhone')
 
-    const onSubmit = (data: ContactsType) => {
-      setFormValue(data)
+    const onFormSubmit = (data: ContactsType) => {
+      setFormValue({ ...data, isDataReceived: true })
     }
 
     const normalizePhoneNumber = (value: string) => {
@@ -48,7 +49,7 @@ const Contacts: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
     return (
       <>
         <Typography variant="h5">Enter your contacts</Typography>
-        <CustomForm onSubmit={handleSubmit(onSubmit)}>
+        <CustomForm onSubmit={handleSubmit(onFormSubmit)}>
           <TextInput
             {...register('email')}
             id="email"

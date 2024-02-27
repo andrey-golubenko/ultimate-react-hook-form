@@ -32,7 +32,7 @@ const PrimaryButton: React.ForwardRefExoticComponent<INextButton> = forwardRef(
         type="submit"
         color="primary"
         ref={buttonLowerRef}
-        sx={{ margin: theme.spacing(3, 0, 2), width: '30%' }}
+        sx={{ margin: theme.spacing(5, 0, 2), width: '30%' }}
         {...props}
       >
         {children}

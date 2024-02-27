@@ -9,7 +9,7 @@ import { InsertDriveFile, DeleteForever } from '@mui/icons-material'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import { nanoid } from 'nanoid'
-import { MAX_FILE_SIZE } from '../constants'
+import { MAX_FILE_SIZE } from '@/constants'
 
 interface IFilesList {
   files: File[]

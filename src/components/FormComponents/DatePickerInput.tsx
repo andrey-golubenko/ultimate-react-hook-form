@@ -1,34 +1,52 @@
 import { FC } from 'react'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers-pro'
+import {
+  DatePicker,
+  DateView,
+  LocalizationProvider
+} from '@mui/x-date-pickers-pro'
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs'
 import 'dayjs/locale/de'
-import { Control, Controller } from 'react-hook-form'
-import { PersonalInfoType } from '@/Yup/validatingSchemas'
+import { Control, Controller, FieldValues } from 'react-hook-form'
 
 interface IDatePickerInput {
   locale: string
-  name: 'birthDate'
+  name: string
   label: string
-  control: Control<Pick<PersonalInfoType, 'birthDate'>, unknown>
+  control: Control<FieldValues, unknown>
+  large?: boolean
+  views?: DateView[]
 }
 
 const DatePickerInput: FC<IDatePickerInput> = ({
   name,
   label,
   locale,
-  control
+  control,
+  views,
+  large
 }) => (
   <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
     <Controller
       name={name}
       control={control}
-      render={({ field: { ref, value, ...restField } }) => (
+      render={({
+        field: { ref, value, ...restField },
+        fieldState: { error }
+      }) => (
         <DatePicker
           label={label}
           value={value}
           inputRef={ref}
+          views={views}
+          slotProps={{
+            textField: {
+              variant: 'outlined',
+              error: !!error,
+              helperText: error?.message
+            }
+          }}
           sx={{
-            maxWidth: '12rem',
+            maxWidth: !large ? '12rem' : '14rem',
             '& .MuiInputBase-input': {
               padding: '.4rem .75rem',
               fontSize: '21px'

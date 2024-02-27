@@ -4,8 +4,8 @@ import TableRow from '@mui/material/TableRow'
 
 const ResultTableHead: FC = () => (
   <TableRow>
-    <TableCell sx={{ fontSize: '28px' }}>Field</TableCell>
-    <TableCell sx={{ fontSize: '28px' }} align="right">
+    <TableCell sx={{ fontSize: '1.7rem' }}>Field</TableCell>
+    <TableCell sx={{ fontSize: '1.7rem' }} align="right">
       Value
     </TableCell>
   </TableRow>

@@ -1,24 +1,10 @@
-import { Dayjs } from 'dayjs'
 import { createContext, useContext, useMemo, useState } from 'react'
+import { IFormFields } from '@/types'
 
 const DataContex = createContext<IUseData>({
   formData: {},
   setFormValue: () => null
 })
-
-export interface IFormFields {
-  address?: string
-  birthDate?: Dayjs | Date | string | null
-  firstName?: string
-  lastName?: string
-  email?: string
-  hasPhone?: boolean
-  phoneNumber?: string
-  password?: string
-  passwordConfirmation?: string
-  loadFiles?: File[]
-  video?: string | null
-}
 
 interface IUseData {
   formData: IFormFields
@@ -26,7 +12,7 @@ interface IUseData {
 }
 
 export const DataProvider = ({ children }: React.PropsWithChildren) => {
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({ isDataReceived: false })
 
   const setFormValue = (value: NonNullable<unknown>) => {
     setFormData((prevData) => ({

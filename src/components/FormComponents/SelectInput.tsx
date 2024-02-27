@@ -3,13 +3,12 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { Control, Controller } from 'react-hook-form'
-import { PersonalInfoType } from '@/Yup/validatingSchemas'
+import { Control, Controller, FieldValues } from 'react-hook-form'
 
 interface ISelectInput {
-  name: 'address'
+  name: string
   label: string
-  control: Control<Pick<PersonalInfoType, 'address'>, unknown>
+  control: Control<FieldValues, unknown>
 }
 
 const SelectInput: FC<ISelectInput> = ({ name, label, control }) => (
