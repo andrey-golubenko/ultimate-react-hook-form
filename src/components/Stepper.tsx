@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
-import { nanoid } from 'nanoid'
 import { PATHS } from '@/constants'
 
-const Stepper: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
+const Stepper: FC<{ onStepChange?: () => void }> = ({ onStepChange }) => (
   <Grid
     container
     sx={{
@@ -23,7 +22,7 @@ const Stepper: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
 
           return (
             <Grid
-              key={nanoid()}
+              key={url}
               item
               sx={{ ':not(:last-child)': { marginRight: '1rem' } }}
             >

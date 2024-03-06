@@ -4,9 +4,8 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import getVideoId from 'get-video-id'
-import ResponsiveEmbed from 'react-responsive-embed'
 import dayjs from 'dayjs'
-import { nanoid } from 'nanoid'
+import EmbeddedVideo from '@/Components/EmbeddedVideo'
 import { getNormalizedFieldName } from '@/helpers'
 
 interface IResultTableBody {
@@ -26,7 +25,7 @@ const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
       <TableCell>{fieldName}</TableCell>
       <TableCell align="right" sx={{ width: videoID ? '12.5rem' : 'inherit' }}>
         {videoID && (
-          <ResponsiveEmbed
+          <EmbeddedVideo
             tabIndex={-1}
             src={`https://www.youtube.com/embed/${videoID}`}
             allowFullScreen
@@ -35,10 +34,10 @@ const ResultTableBody: FC<IResultTableBody> = ({ field }) => {
 
         {Array.isArray(value) &&
           value?.map(
-            ({ start, end, specialty, educational_institution }, index) => (
-              <Stack key={nanoid()} alignItems="flex-end" mb={2}>
+            ({ id, start, end, specialty, educational_institution }) => (
+              <Stack key={id} alignItems="flex-end" mb={2}>
                 <Typography fontSize="1.2rem">
-                  {index + 1}) {dayjs(start).format('MM.YYYY')} -{' '}
+                  {id}) {dayjs(start).format('MM.YYYY')} -{' '}
                   {dayjs(end).format('MM.YYYY')}
                 </Typography>
                 <Typography fontSize="1.2rem">{specialty}</Typography>

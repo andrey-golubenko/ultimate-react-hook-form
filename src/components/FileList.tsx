@@ -8,7 +8,6 @@ import IconButton from '@mui/material/IconButton'
 import { InsertDriveFile, DeleteForever } from '@mui/icons-material'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
-import { nanoid } from 'nanoid'
 import { MAX_FILE_SIZE } from '@/constants'
 
 interface IFilesList {
@@ -26,7 +25,7 @@ const FilesList: FC<IFilesList> = ({ files, handleDelete }) => (
 
           return (
             <ListItem
-              key={nanoid()}
+              key={file?.name}
               secondaryAction={
                 handleDelete && (
                   <IconButton

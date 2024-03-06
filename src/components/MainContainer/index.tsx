@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import theme from '@/theme/theme'
 import { PATHS } from '@/constants'
 
-const MainContainer: FC = ({ children, ...props }: React.PropsWithChildren) => {
+const MainContainer: FC<React.PropsWithChildren> = ({ children, ...props }) => {
   const { pathname } = useLocation()
   const largeView = pathname === PATHS.result || pathname === PATHS.education
 

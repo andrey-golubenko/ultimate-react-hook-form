@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack'
 import theme from '@/theme/theme'
 import Stepper from '@/Components/Stepper'
 
-const Header: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
+const Header: FC<{ onStepChange?: () => void }> = ({ onStepChange }) => (
   <Stack component="header" sx={{ marginBottom: '3rem' }}>
     <Paper variant="outlined">
       <Typography

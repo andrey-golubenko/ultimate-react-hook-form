@@ -5,7 +5,7 @@ describe('Render the app correctly', () => {
   test('should render the title', async () => {
     render(<App />)
 
-    const header = await screen.findByText(/ViteRC/)
+    const header = await screen.findByText(/The Ultimate Form/)
 
     expect(header).toBeInTheDocument()
   })

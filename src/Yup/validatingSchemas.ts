@@ -1,7 +1,6 @@
-import * as yup from 'yup'
-import YupPassword from 'yup-password'
 import getVideoId from 'get-video-id'
 import dayjs from 'dayjs'
+import Yup from '@/Yup/yupMethods'
 import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '@/constants'
 import {
   PersonalInfoType,
@@ -12,45 +11,39 @@ import {
   EducationType
 } from '@/types'
 
-YupPassword(yup)
-
 const stringRegExp = /^([^0-9]*)$/
 const phoneRegExp = /^([^a-zA-Z]*)$/
 
-export const schemaPersonalInfo: yup.ObjectSchema<
+export const schemaPersonalInfo: Yup.ObjectSchema<
   PersonalInfoType,
-  yup.AnyObject,
+  Yup.AnyObject,
   PersonalInfoType,
   ''
-> = yup.object().shape({
-  address: yup.string(),
-  birthDate: yup.date().max(new Date(), "You can't be born in the future!"),
-  firstName: yup
-    .string()
+> = Yup.object().shape({
+  address: Yup.string(),
+  birthDate: Yup.date().max(new Date(), "You can't be born in the future!"),
+  firstName: Yup.string()
     .matches(stringRegExp, 'First name shoud not contain numbers!')
     .required('First Name is a required field!'),
-  lastName: yup
-    .string()
+  lastName: Yup.string()
     .matches(stringRegExp, 'Last name shoud not contain numbers!')
     .required('Last Name is a required field!')
 })
 
-export const schemaContacts: yup.ObjectSchema<
+export const schemaContacts: Yup.ObjectSchema<
   ContactsType,
-  yup.AnyObject,
+  Yup.AnyObject,
   ContactsType,
   ''
-> = yup.object().shape({
-  email: yup
-    .string()
+> = Yup.object().shape({
+  email: Yup.string()
     .email('Email should have correct format!')
     .required('Email is a required field!'),
-  hasPhone: yup.boolean(),
-  phoneNumber: yup.string().when('hasPhone', {
+  hasPhone: Yup.boolean(),
+  phoneNumber: Yup.string().when('hasPhone', {
     is: true,
     then: () =>
-      yup
-        .string()
+      Yup.string()
         .matches(phoneRegExp, {
           message: 'Phone number should contain only numbers',
           excludeEmptyString: false
@@ -60,69 +53,63 @@ export const schemaContacts: yup.ObjectSchema<
 })
 
 // @ts-ignore
-export const schemaEducation: yup.ObjectSchema<
+export const schemaEducation: Yup.ObjectSchema<
   EducationType,
-  yup.AnyObject,
+  Yup.AnyObject,
   EducationType,
   ''
-> = yup.object().shape({
-  education: yup.array().of(
-    yup.object().shape({
-      start: yup.date(),
-      end: yup
-        .date()
-        .min(
-          yup.ref('start'),
-          ({ min }) =>
-            `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
-        ),
-      specialty: yup.string(),
-      educational_institution: yup.string()
+> = Yup.object().shape({
+  education: Yup.array().of(
+    Yup.object().shape({
+      start: Yup.date(),
+      end: Yup.date().min(
+        Yup.ref('start'),
+        ({ min }) =>
+          `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
+      ),
+      specialty: Yup.string(),
+      educational_institution: Yup.string()
     })
   )
 })
 
-export const shemaPassword: yup.ObjectSchema<
+export const shemaPassword: Yup.ObjectSchema<
   PasswordType,
-  yup.AnyObject,
+  Yup.AnyObject,
   PasswordType,
   ''
-> = yup.object().shape({
-  password: yup
-    .string()
+> = Yup.object().shape({
+  password: Yup.string()
     .min(5)
     .minLowercase(1)
     .minUppercase(1)
     .minNumbers(1)
     .required('Password is a required field!'),
-  passwordConfirmation: yup
-    .string()
+  passwordConfirmation: Yup.string()
     .required('Password confirmation is a required field!')
-    .oneOf([yup.ref('password')], 'Passwords must match!')
+    .oneOf([Yup.ref('password')], 'Passwords must match!')
 })
 
-export const schemaFiles: yup.ObjectSchema<
+export const schemaFiles: Yup.ObjectSchema<
   FilesType,
-  yup.AnyObject,
+  Yup.AnyObject,
   FilesType,
   ''
-> = yup.object().shape({
-  loadFiles: yup
-    .mixed<File[]>()
+> = Yup.object().shape({
+  loadFiles: Yup.mixed<File[]>()
     .required('Files is required field!')
     .test('loadFiles', WRONG_FILE_SIZE_MESSAGE, (value: File[]) =>
       value.every((file: File) => file?.size <= MAX_FILE_SIZE)
     )
 })
 
-export const videoSchema: yup.ObjectSchema<
+export const videoSchema: Yup.ObjectSchema<
   VideoType,
-  yup.AnyObject,
+  Yup.AnyObject,
   VideoType,
   ''
-> = yup.object().shape({
-  video: yup
-    .string()
+> = Yup.object().shape({
+  video: Yup.string()
     .required('Video is required field!')
     .test(
       'validateVideoLink',

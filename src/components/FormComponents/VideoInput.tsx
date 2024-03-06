@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form'
 import getVideoId from 'get-video-id'
 import Stack from '@mui/material/Stack'
-import ResponsiveEmbed from 'react-responsive-embed'
+import EmbeddedVideo from '@/Components/EmbeddedVideo'
 import TextInput from '@/Components/FormComponents/TextInput'
 
 interface IVideoInput {
@@ -54,7 +54,7 @@ const VideoInput: FC<IVideoInput> = ({
         helperText={validatErrors?.message}
         onChange={handleChange}
       />
-      <ResponsiveEmbed
+      <EmbeddedVideo
         tabIndex={-1}
         src={`https://www.youtube.com/embed/${customVideoID}`}
         allowFullScreen

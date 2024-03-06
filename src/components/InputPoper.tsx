@@ -1,12 +1,11 @@
 import { FC } from 'react'
-import * as yup from 'yup'
 import Popper from '@mui/material/Popper'
 import Fade from '@mui/material/Fade'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material'
 import { PopupState, bindPopper } from 'material-ui-popup-state/hooks'
-import YupPassword from 'yup-password'
+import Yup from '@/Yup/yupMethods'
 import CheckIcon from '@/Components/CheckIcon'
 
 interface IInputPopper {
@@ -23,8 +22,6 @@ const InputPoper: FC<IInputPopper> = ({ popupState, passwordValue }) => {
     paddingLeft: '.5rem',
     marginBottom: 0.8
   }))
-
-  YupPassword(yup)
 
   return (
     <Popper
@@ -56,7 +53,7 @@ const InputPoper: FC<IInputPopper> = ({ popupState, passwordValue }) => {
               <CheckIcon
                 valid={
                   !!passwordValue &&
-                  yup.string().min(5).isValidSync(passwordValue)
+                  Yup.string().min(5).isValidSync(passwordValue)
                 }
               />
               5 or more characters
@@ -65,8 +62,7 @@ const InputPoper: FC<IInputPopper> = ({ popupState, passwordValue }) => {
               <CheckIcon
                 valid={
                   !!passwordValue &&
-                  yup
-                    .string()
+                  Yup.string()
                     .minLowercase(1)
                     .minUppercase(1)
                     .isValidSync(passwordValue)
@@ -78,7 +74,7 @@ const InputPoper: FC<IInputPopper> = ({ popupState, passwordValue }) => {
               <CheckIcon
                 valid={
                   !!passwordValue &&
-                  yup.string().minNumbers(1).isValidSync(passwordValue)
+                  Yup.string().minNumbers(1).isValidSync(passwordValue)
                 }
               />
               At least one number

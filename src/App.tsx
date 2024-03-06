@@ -6,7 +6,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from 'react-router-dom'
-import { nanoid } from 'nanoid'
 import Layout from '@/Components/Layout'
 import router from '@/router'
 import { PATHS } from '@/constants'
@@ -23,7 +22,7 @@ function App() {
       <Route path="/" element={<Layout onStepChange={onStepChange} />}>
         {router.map(({ index = false, path, component: Component }) => (
           <Route
-            key={nanoid()}
+            key={path}
             index={index}
             path={path}
             element={

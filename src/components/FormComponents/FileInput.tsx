@@ -15,7 +15,6 @@ import {
   UseFormSetValue,
   UseFormWatch
 } from 'react-hook-form'
-import { nanoid } from 'nanoid'
 import FilesList from '@/Components/FileList'
 import { MAX_FILE_SIZE } from '@/constants'
 
@@ -140,7 +139,7 @@ const FileInput: FC<IFileInput> = ({
 
           <List>
             {hasDuplicate.map((fileName: string) => (
-              <ListItem key={nanoid()}>
+              <ListItem key={fileName}>
                 <ListItemIcon>
                   <Archive fontSize="small" sx={{ color: 'red' }} />
                 </ListItemIcon>

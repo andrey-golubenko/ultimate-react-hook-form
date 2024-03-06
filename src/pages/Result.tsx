@@ -8,7 +8,6 @@ import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import Stack from '@mui/material/Stack'
 import Swal from 'sweetalert2'
-import { nanoid } from 'nanoid'
 import FilesList from '@/Components/FileList'
 import PrimaryButton from '@/Components/PrimaryButton'
 import ResultTableBody from '@/Components/ResultTableBody'
@@ -23,7 +22,6 @@ const Result: FC = () => {
     ([fieldName]) =>
       Boolean(fieldName) &&
       fieldName !== 'loadFiles' &&
-      fieldName !== 'education' &&
       fieldName !== 'hasPhone' &&
       fieldName !== 'passwordConfirmation' &&
       fieldName !== 'isDataReceived'
@@ -44,9 +42,11 @@ const Result: FC = () => {
       nativeFormData.append('education', JSON.stringify(education))
     }
 
-    fields.forEach(([fieldName, fieldValue]) =>
-      nativeFormData.append(fieldName, fieldValue)
-    )
+    fields
+      .filter(([fieldName]) => fieldName !== 'education')
+      .forEach(([fieldName, fieldValue]) =>
+        nativeFormData.append(fieldName, fieldValue)
+      )
 
     const res = await fetch('http://localhost:4000/', {
       method: 'POST',
@@ -70,8 +70,8 @@ const Result: FC = () => {
           </TableHead>
           <TableBody>
             {!!fields.length &&
-              fields.map((field) => (
-                <ResultTableBody key={nanoid()} field={field} />
+              fields.map(([name, value]) => (
+                <ResultTableBody key={name} field={[name, value]} />
               ))}
           </TableBody>
         </Table>

@@ -30,6 +30,7 @@ const Education: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
         : {
             education: [
               {
+                id: 1,
                 start: null,
                 end: null,
                 specialty: '',
@@ -46,6 +47,7 @@ const Education: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
     })
 
     const onFormSubmit = (data: EducationType) => {
+      console.log('data :>> ', data)
       const formatedEducation = data?.education?.map((item) => ({
         ...item,
         start: dayjs(item?.start),
@@ -148,6 +150,7 @@ const Education: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
               sx={{ marginLeft: 'auto' }}
               onClick={() =>
                 append({
+                  id: fields.length + 1,
                   start: null,
                   end: null,
                   specialty: '',

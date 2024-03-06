@@ -22,6 +22,7 @@
       "@/*": ["*", "src/*"],
     }
   },
-  "include": ["src", "server.ts", "src/Yup/yupMethods.ts"],
+  "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

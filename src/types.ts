@@ -13,6 +13,7 @@ export interface IFormFields {
   hasPhone?: boolean
   phoneNumber?: string
   education?: {
+    id: number
     start?: CustomDate
     end?: CustomDate
     specialty?: string
@@ -44,3 +45,7 @@ export type PasswordType = Pick<
 export type FilesType = Pick<IFormFields, 'loadFiles'>
 
 export type VideoType = Pick<IFormFields, 'video'>
+
+export type ResponsiveEmbededProps = {
+  ratio?: string
+} & JSX.IntrinsicElements['iframe']
