@@ -20,9 +20,10 @@
       "@/Assets/*": ["*", "src/assets/*"],
       "@/Components/*": ["*", "src/components/*"],
       "@/*": ["*", "src/*"],
+      "~/*": ["*", "./src/*"],
     }
   },
-  "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts"],
+  "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts", "tests", "./.eslintrc.json"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

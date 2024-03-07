@@ -61,12 +61,17 @@ export const schemaEducation: Yup.ObjectSchema<
 > = Yup.object().shape({
   education: Yup.array().of(
     Yup.object().shape({
-      start: Yup.date(),
-      end: Yup.date().min(
-        Yup.ref('start'),
-        ({ min }) =>
-          `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
-      ),
+      start: Yup.date().nullable(),
+      end: Yup.date().when('start', {
+        is: true,
+        then: () =>
+          Yup.date().min(
+            Yup.ref('start'),
+            ({ min }) =>
+              `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
+          ),
+        otherwise: () => Yup.date().nullable()
+      }),
       specialty: Yup.string(),
       educational_institution: Yup.string()
     })
