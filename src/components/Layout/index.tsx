@@ -4,8 +4,9 @@ import Stack from '@mui/material/Stack'
 import Header from '@/Components/Header'
 import Footer from '@/Components/Footer'
 import MainContainer from '@/Components/MainContainer'
+import { IStepChange } from '@/types'
 
-const Layout: FC<{ onStepChange: () => void }> = ({ onStepChange }) => (
+const Layout: FC<IStepChange> = ({ onStepChange }) => (
   <Stack sx={{ width: '100vw', minHeight: '100vh' }}>
     <Header onStepChange={onStepChange} />
     <MainContainer>

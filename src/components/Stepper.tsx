@@ -2,8 +2,9 @@ import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import { PATHS } from '@/constants'
+import { IStepChange } from '@/types'
 
-const Stepper: FC<{ onStepChange?: () => void }> = ({ onStepChange }) => (
+const Stepper: FC<IStepChange> = ({ onStepChange }) => (
   <Grid
     container
     sx={{

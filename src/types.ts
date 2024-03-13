@@ -49,3 +49,7 @@ export type VideoType = Pick<IFormFields, 'video'>
 export type ResponsiveEmbededProps = {
   ratio?: string
 } & JSX.IntrinsicElements['iframe']
+
+export interface IStepChange {
+  onStepChange?: () => void
+}
