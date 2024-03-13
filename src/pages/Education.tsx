@@ -47,11 +47,10 @@ const Education: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
     })
 
     const onFormSubmit = (data: EducationType) => {
-      console.log('data :>> ', data)
       const formatedEducation = data?.education?.map((item) => ({
         ...item,
-        start: dayjs(item?.start),
-        end: dayjs(item?.end)
+        start: item?.start ? dayjs(item?.start) : null,
+        end: item?.end ? dayjs(item?.end) : null
       }))
 
       setFormValue({

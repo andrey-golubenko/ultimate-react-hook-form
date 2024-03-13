@@ -1,5 +1,6 @@
 import getVideoId from 'get-video-id'
 import dayjs from 'dayjs'
+import isEmpty from 'lodash.isempty'
 import Yup from '@/Yup/yupMethods'
 import { MAX_FILE_SIZE, WRONG_FILE_SIZE_MESSAGE } from '@/constants'
 import {
@@ -61,19 +62,29 @@ export const schemaEducation: Yup.ObjectSchema<
 > = Yup.object().shape({
   education: Yup.array().of(
     Yup.object().shape({
-      start: Yup.date().nullable(),
-      end: Yup.date().when('start', {
-        is: true,
-        then: () =>
-          Yup.date().min(
-            Yup.ref('start'),
-            ({ min }) =>
-              `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
-          ),
-        otherwise: () => Yup.date().nullable()
+      start: Yup.date().when('end', {
+        is: false || null,
+        then: (schema) => schema.nullable(),
+        otherwise: (schema) =>
+          schema.required(
+            'The graduation date cannot exist without the start date of the education.'
+          )
       }),
-      specialty: Yup.string(),
-      educational_institution: Yup.string()
+
+      end: Yup.date()
+        .nullable()
+        .min(
+          Yup.ref('start'),
+          ({ min }) =>
+            `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
+        ),
+      specialty: Yup.string().when('start', {
+        is: false || null,
+        then: (schema) => schema.nullable(),
+        otherwise: (schema) =>
+          schema.required('The Specialty is a required field!')
+      }),
+      educational_institution: Yup.string().nullable()
     })
   )
 })

@@ -35,7 +35,11 @@ const PersonalInfo: React.ForwardRefExoticComponent<
 
   const onFormSubmit = (data: IFormFields) => {
     const { birthDate } = data
-    setFormValue({ ...data, birthDate: dayjs(birthDate), isDataReceived: true })
+    setFormValue({
+      ...data,
+      birthDate: birthDate ? dayjs(birthDate) : null,
+      isDataReceived: true
+    })
   }
 
   return (

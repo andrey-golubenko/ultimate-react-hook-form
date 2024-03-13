@@ -19,8 +19,7 @@
     "paths": {
       "@/Assets/*": ["*", "src/assets/*"],
       "@/Components/*": ["*", "src/components/*"],
-      "@/*": ["*", "src/*"],
-      "~/*": ["*", "./src/*"],
+      "@/*": ["*", "src/*"]
     }
   },
   "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts", "tests", "./.eslintrc.json"],
