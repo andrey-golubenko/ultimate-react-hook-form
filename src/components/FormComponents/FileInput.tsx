@@ -24,8 +24,8 @@ interface IFileInput {
   register: UseFormRegister<FieldValues>
   watch: UseFormWatch<FieldValues>
   validatErrors: Merge<FieldError, (FieldError | undefined)[]> | undefined
-  hasDuplicate: [] | string[]
-  setHasDuplicate: React.Dispatch<React.SetStateAction<string[] | []>>
+  duplicates: [] | string[]
+  setDuplicates: React.Dispatch<React.SetStateAction<string[] | []>>
 }
 
 type OnDropType =
@@ -42,8 +42,8 @@ const FileInput: FC<IFileInput> = ({
   register,
   watch,
   validatErrors,
-  hasDuplicate,
-  setHasDuplicate
+  duplicates,
+  setDuplicates
 }) => {
   useEffect(() => {
     register(name)
@@ -64,7 +64,7 @@ const FileInput: FC<IFileInput> = ({
         (file) => !filesNames?.includes(file?.name)
       )
 
-      setHasDuplicate(() => [...duplicatedFiles])
+      setDuplicates(() => [...duplicatedFiles])
 
       if (uniqueFiles.length) {
         const newFiles =
@@ -72,7 +72,7 @@ const FileInput: FC<IFileInput> = ({
         setValue(name, newFiles)
       }
     },
-    [files, setValue, name, setHasDuplicate]
+    [files, setValue, name, setDuplicates]
   )
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
@@ -87,7 +87,7 @@ const FileInput: FC<IFileInput> = ({
 
   const { onBlur, onChange } = register(name)
 
-  const wordEnd = hasDuplicate && hasDuplicate.length > 0 ? 's' : ''
+  const wordEnd = duplicates && duplicates.length > 0 ? 's' : ''
 
   return (
     <>
@@ -113,8 +113,9 @@ const FileInput: FC<IFileInput> = ({
         <input
           name={name}
           id={name}
+          data-testid={name}
           multiple
-          accept="image/*,.pdf,.csv,.xlsx"
+          accept="image/*,.pdf,.csv,.xlsx,.txt"
           // accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           {...getInputProps({ onBlur, onChange })}
         />
@@ -128,7 +129,7 @@ const FileInput: FC<IFileInput> = ({
           {validatErrors?.message}
         </Typography>
       )}
-      {!!hasDuplicate?.length && (
+      {!!duplicates?.length && (
         <>
           <Typography
             variant="body2"
@@ -138,7 +139,7 @@ const FileInput: FC<IFileInput> = ({
           </Typography>
 
           <List>
-            {hasDuplicate.map((fileName: string) => (
+            {duplicates.map((fileName: string) => (
               <ListItem key={fileName}>
                 <ListItemIcon>
                   <Archive fontSize="small" sx={{ color: 'red' }} />

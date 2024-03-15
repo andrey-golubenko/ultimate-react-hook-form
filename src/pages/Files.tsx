@@ -23,7 +23,7 @@ const Files: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
       resolver: yupResolver(schemaFiles)
     })
 
-    const [hasDuplicate, setHasDuplicate] = useState<string[] | []>([])
+    const [duplicates, setDuplicates] = useState<string[] | []>([])
 
     const onFormSubmit = (data: FilesType) => {
       setFormValue({ ...data, isDataReceived: true })
@@ -39,8 +39,8 @@ const Files: React.ForwardRefExoticComponent<React.RefAttributes<unknown>> =
             register={register}
             watch={watch}
             validatErrors={errors?.loadFiles}
-            hasDuplicate={hasDuplicate}
-            setHasDuplicate={setHasDuplicate}
+            duplicates={duplicates}
+            setDuplicates={setDuplicates}
           />
           <NavButtons ref={ref} />
         </CustomForm>
