@@ -46,8 +46,8 @@ const CustomForm: FC<PropsCustomForm> = ({ children, onSubmit, ...props }) => {
 
   useEffect(() => {
     if (isDataReceived) {
-      navigate(navigateTo)
       setFormValue({ isDataReceived: false })
+      navigate(navigateTo)
     }
   }, [isDataReceived, navigate, navigateTo, setFormValue])
 

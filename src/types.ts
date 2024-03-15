@@ -51,5 +51,5 @@ export type ResponsiveEmbededProps = {
 } & JSX.IntrinsicElements['iframe']
 
 export interface IStepChange {
-  onStepChange?: () => void
+  onStepChange?: (event?: React.FormEvent<Element> | undefined) => void
 }
