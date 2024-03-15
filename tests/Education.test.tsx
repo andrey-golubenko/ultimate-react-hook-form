@@ -3,7 +3,9 @@ import { userEvent } from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import Education from '../src/pages/Education'
 
-const fillForm = async () => {
+const fillForm = async (): Promise<{
+  [x: string]: HTMLElement
+}> => {
   const startEducation = screen.getByLabelText(/Date of start/)
   const endEducation = screen.getByLabelText(/Date of graduation/)
   const specialty = screen.getByLabelText(/Specialty/)

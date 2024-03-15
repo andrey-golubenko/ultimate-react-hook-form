@@ -3,7 +3,9 @@ import { userEvent } from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import Contacts from '../src/pages/Contacts'
 
-const fillForm = async () => {
+const fillForm = async (): Promise<{
+  [x: string]: HTMLElement
+}> => {
   const email = screen.getByLabelText(/Email/)
   const checkBox = screen.getByLabelText(/Do you have a phone/)
 

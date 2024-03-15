@@ -3,7 +3,9 @@ import { userEvent } from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import PersonalInfo from '../src/pages/PersonalInfo'
 
-const fillForm = async () => {
+const fillForm = async (): Promise<{
+  [x: string]: HTMLElement
+}> => {
   const address = screen.getByLabelText(/Address/)
   const birthDate = screen.getByLabelText(/Date of birth/)
   const firstName = screen.getByLabelText(/First Name/)
