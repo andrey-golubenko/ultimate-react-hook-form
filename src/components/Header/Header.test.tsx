@@ -1,16 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { screen, waitFor } from '@testing-library/react'
+import { Route, Routes } from 'react-router-dom'
+import customRender from '~/tests/test-utils'
 import router from '@/router'
 import Header from '.'
 
 describe('Render the Header Component correctly', () => {
   test('should render the Title', async () => {
-    render(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    )
+    customRender(<Header />)
 
     const title = await screen.findByText('The Ultimate Form')
 
@@ -18,11 +14,7 @@ describe('Render the Header Component correctly', () => {
   })
 
   test('Shoud render NavLinks', async () => {
-    render(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    )
+    customRender(<Header />)
 
     const personalInfo = await screen.findByText('Personal information')
     const contacts = await screen.findByText('Contacts')
@@ -42,10 +34,9 @@ describe('Render the Header Component correctly', () => {
   })
 
   test('User can navigate acсording to link names', async () => {
-    render(
-      <BrowserRouter>
+    const { user } = customRender(
+      <>
         <Header />
-
         <Routes>
           {router.map(({ index = false, path, component: Component }) => (
             <Route
@@ -56,40 +47,40 @@ describe('Render the Header Component correctly', () => {
             />
           ))}
         </Routes>
-      </BrowserRouter>
+      </>
     )
 
-    userEvent.click(screen.getByRole('link', { name: 'Contacts' }))
+    await user.click(screen.getByRole('link', { name: 'Contacts' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/contacts')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Education' }))
+    await user.click(screen.getByRole('link', { name: 'Education' }))
     await waitFor(() => {
-      expect(window.location.pathname).toEqual('/contacts')
+      expect(window.location.pathname).toEqual('/education')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Password' }))
+    await user.click(screen.getByRole('link', { name: 'Password' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/password')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Files' }))
+    await user.click(screen.getByRole('link', { name: 'Files' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/files')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Video' }))
+    await user.click(screen.getByRole('link', { name: 'Video' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/video')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Result' }))
+    await user.click(screen.getByRole('link', { name: 'Result' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/result')
     })
 
-    userEvent.click(screen.getByRole('link', { name: 'Personal information' }))
+    await user.click(screen.getByRole('link', { name: 'Personal information' }))
     await waitFor(() => {
       expect(window.location.pathname).toEqual('/')
     })

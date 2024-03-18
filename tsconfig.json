@@ -19,7 +19,8 @@
     "paths": {
       "@/Assets/*": ["*", "src/assets/*"],
       "@/Components/*": ["*", "src/components/*"],
-      "@/*": ["*", "src/*"]
+      "@/*": ["*", "src/*"],
+      "~/*": ["*", "ultimate-react-hook-form/*"]
     }
   },
   "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts", "tests", "./.eslintrc.json"],

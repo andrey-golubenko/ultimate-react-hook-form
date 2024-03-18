@@ -1,20 +1,16 @@
-import { screen, render, waitFor } from '@testing-library/react'
-import { userEvent } from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
-import Files from '../src/pages/Files'
+import { screen, waitFor } from '@testing-library/react'
+import Files from '~/src/pages/Files'
+import customRender from './test-utils'
 
 describe('Files form', () => {
   test('Should uploads file', async () => {
     const file = new File(['hello'], 'hello.txt', { type: 'text/plain' })
 
-    render(
-      <BrowserRouter>
-        <Files />
-      </BrowserRouter>
-    )
+    const { user } = customRender(<Files />)
 
     const input = screen.getByTestId('loadFiles')
-    await waitFor(() => userEvent.upload(input, file))
+
+    await waitFor(() => user.upload(input, file))
 
     expect((input as HTMLInputElement)?.files?.length).toBe(1)
     expect(screen.getByText('hello.txt')).toBeInTheDocument()
@@ -26,17 +22,33 @@ describe('Files form', () => {
       new File(['there'], 'there.png', { type: 'image/png' })
     ]
 
-    render(
-      <BrowserRouter>
-        <Files />
-      </BrowserRouter>
-    )
+    const { user } = customRender(<Files />)
 
     const input = screen.getByTestId('loadFiles')
-    await waitFor(() => userEvent.upload(input, files))
+
+    await waitFor(() => user.upload(input, files))
 
     expect((input as HTMLInputElement)?.files?.length).toBe(2)
     expect(screen.getByText('hello.txt')).toBeInTheDocument()
     expect(screen.getByText('there.png')).toBeInTheDocument()
+  })
+
+  test('Should validate Files form fields', async () => {
+    const mockSave = jest.fn()
+    const file = new File([new ArrayBuffer(1024 * 200)], 'there.png', {
+      type: 'image/png'
+    })
+
+    const { user } = customRender(<Files saveData={mockSave} />)
+
+    const input = screen.getByTestId('loadFiles')
+
+    await waitFor(() => user.upload(input, file))
+    await user.click(screen.getByRole('button', { name: 'Next >' }))
+
+    waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveLength(1)
+      expect(mockSave).not.toBeCalled()
+    })
   })
 })

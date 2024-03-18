@@ -11,11 +11,11 @@ import PrimaryButton from '@/Components/PrimaryButton'
 import DatePickerInput from '@/Components/FormComponents/DatePickerInput'
 import { useData } from '@/HOC/DataContex'
 import { schemaPersonalInfo } from '@/Yup/validatingSchemas'
-import { IFormFields, PersonalInfoType } from '@/types'
+import { IFormFields, SaveData, PersonalInfoType } from '@/types'
 
 const PersonalInfo: React.ForwardRefExoticComponent<
-  React.RefAttributes<unknown>
-> = forwardRef((_, ref) => {
+  SaveData & React.RefAttributes<unknown>
+> = forwardRef(({ saveData }, ref) => {
   const { formData, setFormValue } = useData()
   const {
     register,
@@ -33,14 +33,16 @@ const PersonalInfo: React.ForwardRefExoticComponent<
     resolver: yupResolver(schemaPersonalInfo)
   })
 
-  const onFormSubmit = (data: IFormFields) => {
-    const { birthDate } = data
-    setFormValue({
-      ...data,
-      birthDate: birthDate ? dayjs(birthDate) : null,
-      isDataReceived: true
+  const onFormSubmit =
+    saveData ||
+    ((data: IFormFields) => {
+      const { birthDate } = data
+      setFormValue({
+        ...data,
+        birthDate: birthDate ? dayjs(birthDate) : null,
+        isDataReceived: true
+      })
     })
-  }
 
   return (
     <>

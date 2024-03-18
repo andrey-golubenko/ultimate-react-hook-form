@@ -9,12 +9,13 @@ import NotFoudPage from '@/pages/NotFoudPage'
 import ErrorPage from '@/pages/ErrorPage'
 import Video from '@/pages/Video'
 import Education from '@/pages/Education'
+import { SaveData } from './types'
 
 type SingleRoute = {
   index?: boolean
   path: string
   component:
-    | ForwardRefExoticComponent<RefAttributes<unknown>>
+    | ForwardRefExoticComponent<SaveData & RefAttributes<unknown>>
     | (() => JSX.Element | null)
     | FC
   errorComponent: (() => JSX.Element | null) | FC

@@ -34,7 +34,8 @@ const CustomForm: FC<PropsCustomForm> = ({ children, onSubmit, ...props }) => {
   const onCustomSubmit = (
     event: BaseSyntheticEvent<object, unknown, unknown> | undefined
   ) => {
-    const eventSubmitter = (event?.nativeEvent as HTMLFormElement)?.submitter.id
+    const eventSubmitter =
+      (event?.nativeEvent as HTMLFormElement)?.submitter?.id || 'next'
     const url = getDirection(pathname, eventSubmitter)
 
     setNavigateTo(url)

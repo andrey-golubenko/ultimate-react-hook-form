@@ -14,13 +14,14 @@ import ResultTableBody from '@/Components/ResultTableBody'
 import ResultTableHead from '@/Components/ResultTableHead'
 import { useData } from '@/HOC/DataContex'
 import { PATHS } from '@/constants'
+import { SaveData } from '@/types'
 
-const Result: FC = () => {
+const Result: FC<SaveData> = ({ saveData }) => {
   const { formData } = useData()
 
   const fields = Object.entries(formData).filter(
-    ([fieldName]) =>
-      Boolean(fieldName) &&
+    ([fieldName, fieldValue]) =>
+      Boolean(fieldValue) &&
       fieldName !== 'loadFiles' &&
       fieldName !== 'hasPhone' &&
       fieldName !== 'passwordConfirmation' &&
@@ -29,34 +30,43 @@ const Result: FC = () => {
 
   const { loadFiles, education } = formData
 
-  const handleSubmit = async () => {
-    const nativeFormData = new FormData()
+  const handleSubmit =
+    saveData ||
+    (async () => {
+      const nativeFormData = new FormData()
 
-    if (loadFiles) {
-      loadFiles.forEach((file) =>
-        nativeFormData.append('files', file, file.name)
-      )
-    }
+      if (loadFiles) {
+        loadFiles.forEach((file) =>
+          nativeFormData.append('files', file, file.name)
+        )
+      }
 
-    if (education) {
-      nativeFormData.append('education', JSON.stringify(education))
-    }
+      if (education) {
+        nativeFormData.append('education', JSON.stringify(education))
+      }
 
-    fields
-      .filter(([fieldName]) => fieldName !== 'education')
-      .forEach(([fieldName, fieldValue]) =>
-        nativeFormData.append(fieldName, fieldValue)
-      )
+      fields
+        .filter(([fieldName]) => fieldName !== 'education')
+        .forEach(([fieldName, fieldValue]) =>
+          nativeFormData.append(fieldName, fieldValue)
+        )
 
-    const res = await fetch('http://localhost:4000/', {
-      method: 'POST',
-      body: nativeFormData
+      if (nativeFormData.has('firstName') || nativeFormData.has('lastName')) {
+        const res = await fetch('http://localhost:4000/', {
+          method: 'POST',
+          body: nativeFormData
+        })
+
+        if (res.status === 200) {
+          Swal.fire('Great job!', 'success')
+        }
+      } else
+        Swal.fire(
+          'You entered incomplete data.',
+          'Fill the form please!',
+          'warning'
+        )
     })
-
-    if (res.status === 200) {
-      Swal.fire('Great job!', 'success')
-    }
-  }
 
   return (
     <>

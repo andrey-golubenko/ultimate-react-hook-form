@@ -2,13 +2,13 @@ import { forwardRef, useImperativeHandle, useRef } from 'react'
 import Button from '@mui/material/Button'
 import theme from '@/theme/theme'
 
-interface INextButton extends React.PropsWithChildren {
-  onClick?: (event: React.MouseEvent) => Promise<void>
+interface IStepButton extends React.PropsWithChildren {
+  onClick?: (event?: React.MouseEvent) => Promise<void> | void
   ref?: React.ForwardedRef<unknown>
   buttonId?: string
 }
 
-const PrimaryButton: React.ForwardRefExoticComponent<INextButton> = forwardRef(
+const PrimaryButton: React.ForwardRefExoticComponent<IStepButton> = forwardRef(
   (
     {
       children,

@@ -50,6 +50,8 @@ export type ResponsiveEmbededProps = {
   ratio?: string
 } & JSX.IntrinsicElements['iframe']
 
+export type SaveData = { saveData?: () => void }
+
 export interface IStepChange {
   onStepChange?: (event?: React.FormEvent<Element> | undefined) => void
 }

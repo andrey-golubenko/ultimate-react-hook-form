@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
-const fs = require('fs')
+const fs = require('node:fs')
 const express = require('express')
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
@@ -27,6 +27,14 @@ app.use(morgan('dev'))
 
 // @ts-ignore
 app.post('/', limiter, async (req, res) => {
+  try {
+    if (!fs.existsSync('./uploads')) {
+      fs.mkdirSync('./uploads')
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
   try {
     if (req.files && req.files.files) {
       ;[req.files.files].flat().map((file) => file.mv(`./uploads/${file.name}`))

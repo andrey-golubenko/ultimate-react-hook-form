@@ -25,10 +25,10 @@ export const schemaPersonalInfo: Yup.ObjectSchema<
     .max(new Date(), "You can't be born in the future!")
     .nullable(),
   firstName: Yup.string()
-    .matches(stringRegExp, 'First name shoud not contain numbers!')
+    .matches(stringRegExp, 'The first name should not contain numbers!')
     .required('First Name is a required field!'),
   lastName: Yup.string()
-    .matches(stringRegExp, 'Last name shoud not contain numbers!')
+    .matches(stringRegExp, 'The last name should not contain numbers!')
     .required('Last Name is a required field!')
 })
 
