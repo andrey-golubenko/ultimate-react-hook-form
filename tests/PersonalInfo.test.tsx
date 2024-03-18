@@ -20,8 +20,7 @@ describe('Personal information form', () => {
       })
       await user.click(within(optionsAddress).getByText(/Mister/))
 
-      await user.click(birthDate)
-      await user.click(screen.getByText('1'))
+      fireEvent.change(birthDate, { target: { value: '2010/01/01' } })
 
       await user.type(firstName, 'John')
       await user.type(lastName, 'Smith')
