@@ -63,7 +63,7 @@ export const schemaEducation: Yup.ObjectSchema<
 > = Yup.object().shape({
   education: Yup.array().of(
     Yup.object().shape({
-      start: Yup.date().when('end', {
+      start: Yup.string().when('end', {
         is: false || null,
         then: (schema) => schema.nullable(),
         otherwise: (schema) =>
@@ -72,7 +72,7 @@ export const schemaEducation: Yup.ObjectSchema<
           )
       }),
 
-      end: Yup.date()
+      end: Yup.string()
         .nullable()
         .min(
           Yup.ref('start'),
@@ -120,7 +120,7 @@ export const schemaFiles: Yup.ObjectSchema<
     )
 })
 
-export const videoSchema: Yup.ObjectSchema<
+export const schemaVideo: Yup.ObjectSchema<
   VideoType,
   Yup.AnyObject,
   VideoType,
@@ -130,7 +130,7 @@ export const videoSchema: Yup.ObjectSchema<
     .required('Video is required field!')
     .test(
       'validateVideoLink',
-      'Video link is invalid',
+      'Video link is invalid!',
       (value: string | null | undefined) => {
         const { id } = getVideoId(value as string)
 

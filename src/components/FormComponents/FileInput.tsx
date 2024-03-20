@@ -125,7 +125,12 @@ const FileInput: FC<IFileInput> = ({
         </p>
       </Paper>
       {validatErrors && (
-        <Typography variant="body2" sx={{ color: 'red', mb: '1rem' }}>
+        <Typography
+          variant="body2"
+          component="p"
+          className="Mui-error"
+          sx={{ color: 'red', mb: '1rem' }}
+        >
           {validatErrors?.message}
         </Typography>
       )}

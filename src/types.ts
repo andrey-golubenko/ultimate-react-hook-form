@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs'
 export type CustomDate = Dayjs | Date | null
 
 export interface IFormFields {
-  isDataReceived?: boolean // service field - never displaed
+  isDataReceived?: boolean // service field - never displayed
 
   address?: string
   birthDate?: CustomDate

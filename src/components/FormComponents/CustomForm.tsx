@@ -53,7 +53,12 @@ const CustomForm: FC<PropsCustomForm> = ({ children, onSubmit, ...props }) => {
   }, [isDataReceived, navigate, navigateTo, setFormValue])
 
   return (
-    <Form noValidate {...props} onSubmit={onCustomSubmit}>
+    <Form
+      noValidate
+      data-testid="custom-form"
+      onSubmit={onCustomSubmit}
+      {...props}
+    >
       {children}
     </Form>
   )

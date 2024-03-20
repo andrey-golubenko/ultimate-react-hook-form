@@ -6,7 +6,7 @@ import CustomForm from '@/Components/FormComponents/CustomForm'
 import VideoInput from '@/Components/FormComponents/VideoInput'
 import NavButtons from '@/Components/NavButtons'
 import { useData } from '@/HOC/DataContex'
-import { videoSchema } from '@/Yup/validatingSchemas'
+import { schemaVideo } from '@/Yup/validatingSchemas'
 import { SaveData, VideoType } from '@/types'
 
 const Video: React.ForwardRefExoticComponent<
@@ -21,7 +21,7 @@ const Video: React.ForwardRefExoticComponent<
   } = useForm({
     mode: 'onBlur',
     defaultValues: { video: formData?.video },
-    resolver: yupResolver(videoSchema)
+    resolver: yupResolver(schemaVideo)
   })
 
   const onFormSubmit =

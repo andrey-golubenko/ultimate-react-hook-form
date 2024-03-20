@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import Files from '~/src/pages/Files'
 import customRender from './test-utils'
 
@@ -10,7 +10,7 @@ describe('Files form', () => {
 
     const input = screen.getByTestId('loadFiles')
 
-    await waitFor(() => user.upload(input, file))
+    await user.upload(input, file)
 
     expect((input as HTMLInputElement)?.files?.length).toBe(1)
     expect(screen.getByText('hello.txt')).toBeInTheDocument()
@@ -26,7 +26,7 @@ describe('Files form', () => {
 
     const input = screen.getByTestId('loadFiles')
 
-    await waitFor(() => user.upload(input, files))
+    await user.upload(input, files)
 
     expect((input as HTMLInputElement)?.files?.length).toBe(2)
     expect(screen.getByText('hello.txt')).toBeInTheDocument()
@@ -43,12 +43,10 @@ describe('Files form', () => {
 
     const input = screen.getByTestId('loadFiles')
 
-    await waitFor(() => user.upload(input, file))
+    await user.upload(input, file)
     await user.click(screen.getByRole('button', { name: 'Next >' }))
 
-    waitFor(() => {
-      expect(screen.getByRole('alert')).toHaveLength(1)
-      expect(mockSave).not.toBeCalled()
-    })
+    expect(document.querySelectorAll('p.Mui-error')).toHaveLength(1)
+    expect(mockSave).not.toBeCalled()
   })
 })
