@@ -15,18 +15,21 @@ import ResultTableHead from '@/Components/ResultTableHead'
 import { useData } from '@/HOC/DataContex'
 import { PATHS } from '@/constants'
 import { SaveData } from '@/types'
+import mockFields from '~/__mocks__/mockData'
 
 const Result: FC<SaveData> = ({ saveData }) => {
   const { formData } = useData()
 
-  const fields = Object.entries(formData).filter(
-    ([fieldName, fieldValue]) =>
-      Boolean(fieldValue) &&
-      fieldName !== 'loadFiles' &&
-      fieldName !== 'hasPhone' &&
-      fieldName !== 'passwordConfirmation' &&
-      fieldName !== 'isDataReceived'
-  )
+  const fields = saveData
+    ? mockFields
+    : Object.entries(formData).filter(
+        ([fieldName, fieldValue]) =>
+          Boolean(fieldValue) &&
+          fieldName !== 'loadFiles' &&
+          fieldName !== 'hasPhone' &&
+          fieldName !== 'passwordConfirmation' &&
+          fieldName !== 'isDataReceived'
+      )
 
   const { loadFiles, education } = formData
 
@@ -73,26 +76,34 @@ const Result: FC<SaveData> = ({ saveData }) => {
       <Typography variant="h5" component="h2" marginBottom={2.5}>
         📋 Form Values
       </Typography>
-      <TableContainer component={Paper} sx={{ marginBottom: '3rem' }}>
-        <Table>
-          <TableHead>
-            <ResultTableHead />
-          </TableHead>
-          <TableBody>
-            {!!fields.length &&
-              fields.map(([name, value]) => (
-                <ResultTableBody key={name} field={[name, value]} />
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {!!loadFiles?.length && (
-        <Stack marginBottom={2}>
-          <Typography component="h2" variant="h5" marginBottom={2.5}>
-            📦 Files
-          </Typography>
-          <FilesList files={loadFiles} />
-        </Stack>
+      {fields.length ? (
+        <>
+          <TableContainer component={Paper} sx={{ marginBottom: '3rem' }}>
+            <Table>
+              <TableHead>
+                <ResultTableHead />
+              </TableHead>
+              <TableBody>
+                {!!fields.length &&
+                  fields.map(([name, value]) => (
+                    <ResultTableBody key={name} field={[name, value]} />
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {!!loadFiles?.length && (
+            <Stack marginBottom={2}>
+              <Typography component="h2" variant="h5" marginBottom={2.5}>
+                📦 Files
+              </Typography>
+              <FilesList files={loadFiles} />
+            </Stack>
+          )}
+        </>
+      ) : (
+        <Typography variant="h3" component="h2" marginBottom={12}>
+          There is no data to display
+        </Typography>
       )}
       <Link
         to={PATHS.personal_information}
@@ -104,7 +115,9 @@ const Result: FC<SaveData> = ({ saveData }) => {
       >
         Start over !
       </Link>
-      <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
+      {!!fields.length && (
+        <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
+      )}
     </>
   )
 }

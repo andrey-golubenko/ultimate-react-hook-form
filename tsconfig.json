@@ -20,7 +20,7 @@
       "@/Assets/*": ["*", "src/assets/*"],
       "@/Components/*": ["*", "src/components/*"],
       "@/*": ["*", "src/*"],
-      "~/*": ["*", "ultimate-react-hook-form/*"]
+      "~/*": ["*", "tests/*"]
     }
   },
   "include": ["src", "src/**/*", "server.ts", "src/Yup/yupMethods.ts", "tests", "./.eslintrc.json"],

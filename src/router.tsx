@@ -9,7 +9,7 @@ import NotFoudPage from '@/pages/NotFoudPage'
 import ErrorPage from '@/pages/ErrorPage'
 import Video from '@/pages/Video'
 import Education from '@/pages/Education'
-import { SaveData } from './types'
+import { ErrorPageType, SaveData } from './types'
 
 type SingleRoute = {
   index?: boolean
@@ -18,7 +18,7 @@ type SingleRoute = {
     | ForwardRefExoticComponent<SaveData & RefAttributes<unknown>>
     | (() => JSX.Element | null)
     | FC
-  errorComponent: (() => JSX.Element | null) | FC
+  errorComponent: (({ error }: ErrorPageType) => JSX.Element | null) | FC
 }
 
 const router: SingleRoute[] = [

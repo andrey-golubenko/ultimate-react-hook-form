@@ -5,7 +5,7 @@ export type CustomDate = Dayjs | Date | null
 export interface IFormFields {
   isDataReceived?: boolean // service field - never displayed
 
-  address?: string
+  address?: string | null
   birthDate?: CustomDate
   firstName?: string
   lastName?: string
@@ -13,7 +13,7 @@ export interface IFormFields {
   hasPhone?: boolean
   phoneNumber?: string
   education?: {
-    id: number
+    id?: number
     start?: CustomDate
     end?: CustomDate
     specialty?: string
@@ -54,4 +54,9 @@ export type SaveData = { saveData?: () => void }
 
 export interface IStepChange {
   onStepChange?: (event?: React.FormEvent<Element> | undefined) => void
+}
+
+export type ErrorPageType = {
+  error?: Error
+  resetErrorBoundary?: (...args: unknown[]) => void
 }

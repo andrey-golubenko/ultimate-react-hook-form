@@ -6,9 +6,11 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from 'react-router-dom'
+import { ErrorBoundary } from 'react-error-boundary'
 import Layout from '@/Components/Layout'
 import router from '@/router'
 import { PATHS } from '@/constants'
+import ErrorPage from './pages/ErrorPage'
 
 function App() {
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -20,20 +22,30 @@ function App() {
   const AppRouter = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout onStepChange={onStepChange} />}>
-        {router.map(({ index = false, path, component: Component }) => (
-          <Route
-            key={path}
-            index={index}
-            path={path}
-            element={
-              path !== PATHS.result ? (
-                <Component ref={buttonRef} />
-              ) : (
-                <Component />
-              )
-            }
-          />
-        ))}
+        {router.map(
+          ({
+            index = false,
+            path,
+            component: Component,
+            errorComponent: ErrorComponent
+          }) => (
+            <Route
+              key={path}
+              index={index}
+              path={path}
+              errorElement={<ErrorComponent />}
+              element={
+                path !== PATHS.result ? (
+                  <ErrorBoundary FallbackComponent={ErrorPage} key={path}>
+                    <Component ref={buttonRef} />
+                  </ErrorBoundary>
+                ) : (
+                  <Component />
+                )
+              }
+            />
+          )
+        )}
       </Route>
     )
   )

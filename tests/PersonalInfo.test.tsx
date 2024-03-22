@@ -1,5 +1,5 @@
 import { screen, within } from '@testing-library/react'
-import PersonalInfo from '~/src/pages/PersonalInfo'
+import PersonalInfo from '../src/pages/PersonalInfo'
 import customRender from './test-utils'
 
 describe('Personal information form', () => {

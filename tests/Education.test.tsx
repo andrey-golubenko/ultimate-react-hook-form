@@ -1,5 +1,5 @@
-import { screen, waitFor } from '@testing-library/react'
-import Education from '~/src/pages/Education'
+import { screen } from '@testing-library/react'
+import Education from '../src/pages/Education'
 import customRender from './test-utils'
 
 describe('Education form', () => {

@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import customRender from '~/tests/test-utils'
+import customRender from '~/test-utils'
 import Footer from '.'
 
 describe('Render Footer companent corectly', () => {

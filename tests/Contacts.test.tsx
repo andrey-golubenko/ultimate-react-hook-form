@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import Contacts from '~/src/pages/Contacts'
+import Contacts from '../src/pages/Contacts'
 import customRender from './test-utils'
 
 describe('Contact form', () => {

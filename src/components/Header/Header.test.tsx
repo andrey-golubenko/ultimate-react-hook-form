@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react'
 import { Route, Routes } from 'react-router-dom'
-import customRender from '~/tests/test-utils'
+import customRender from '~/test-utils'
 import router from '@/router'
 import Header from '.'
 

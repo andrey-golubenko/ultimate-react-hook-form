@@ -20,10 +20,10 @@ export const schemaPersonalInfo: Yup.ObjectSchema<
   PersonalInfoType,
   ''
 > = Yup.object().shape({
-  address: Yup.string(),
+  address: Yup.string().nullable(),
   birthDate: Yup.date()
-    .max(new Date(), "You can't be born in the future!")
-    .nullable(),
+    .nullable()
+    .max(new Date(), "You can't be born in the future!"),
   firstName: Yup.string()
     .matches(stringRegExp, 'The first name should not contain numbers!')
     .required('First Name is a required field!'),
@@ -63,21 +63,23 @@ export const schemaEducation: Yup.ObjectSchema<
 > = Yup.object().shape({
   education: Yup.array().of(
     Yup.object().shape({
-      start: Yup.string().when('end', {
-        is: false || null,
-        then: (schema) => schema.nullable(),
-        otherwise: (schema) =>
-          schema.required(
-            'The graduation date cannot exist without the start date of the education.'
-          )
-      }),
+      start: Yup.mixed()
+        .nullable()
+        .when('end', {
+          is: false || null,
+          then: (schema) => schema.nullable(),
+          otherwise: (schema) =>
+            schema.required(
+              'The graduation date can not exist without the start date of the education.'
+            )
+        }),
 
-      end: Yup.string()
+      end: Yup.date()
         .nullable()
         .min(
           Yup.ref('start'),
           ({ min }) =>
-            `Date needs to be before ${dayjs(min).format('MMMM YYYY')}!`
+            `Date needs to be after ${dayjs(min).format('MMMM YYYY')}!`
         ),
       specialty: Yup.string().when('start', {
         is: false || null,

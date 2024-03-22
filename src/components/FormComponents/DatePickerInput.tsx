@@ -38,6 +38,7 @@ const DatePickerInput: FC<IDatePickerInput> = ({
           value={value}
           inputRef={ref}
           views={views}
+          {...restField}
           slotProps={{
             textField: {
               variant: 'outlined',
@@ -56,7 +57,6 @@ const DatePickerInput: FC<IDatePickerInput> = ({
             },
             '.MuiInputLabel-root.MuiFormLabel-root': { top: '-9px' }
           }}
-          {...restField}
         />
       )}
     />

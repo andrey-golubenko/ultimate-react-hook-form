@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import Result from '~/src/pages/Result'
+import Result from '../src/pages/Result'
 import customRender from './test-utils'
 
 describe('Result page', () => {
@@ -8,8 +8,11 @@ describe('Result page', () => {
 
     const { user } = customRender(<Result saveData={mockSave} />)
 
+    const formValue = screen.getByText('📋 Form Values')
+
     await user.click(screen.getByRole('button', { name: 'Submit' }))
 
+    expect(formValue).toBeInTheDocument()
     expect(mockSave).toHaveBeenCalled()
   })
 })

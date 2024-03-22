@@ -50,17 +50,29 @@ const Education: React.ForwardRefExoticComponent<
   const onFormSubmit =
     saveData ||
     ((data: EducationType) => {
-      const formatedEducation = data?.education?.map((item) => ({
-        ...item,
-        start: item?.start ? dayjs(item?.start) : null,
-        end: item?.end ? dayjs(item?.end) : null
-      }))
+      if (data?.education) {
+        const educationLevel = data?.education[0]
 
-      setFormValue({
-        ...data,
-        education: formatedEducation,
-        isDataReceived: true
-      })
+        if (educationLevel?.start) {
+          const formatedEducation = data?.education?.map((item) => ({
+            ...item,
+            start: item?.start ? dayjs(item?.start) : null,
+            end: item?.end ? dayjs(item?.end) : null
+          }))
+
+          setFormValue({
+            ...data,
+            education: formatedEducation,
+            isDataReceived: true
+          })
+        } else {
+          setFormValue({
+            ...data,
+            education: undefined,
+            isDataReceived: true
+          })
+        }
+      }
     })
 
   return (

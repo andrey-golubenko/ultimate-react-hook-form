@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import Files from '~/src/pages/Files'
+import Files from '../src/pages/Files'
 import customRender from './test-utils'
 
 describe('Files form', () => {

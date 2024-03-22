@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import Video from '~/src/pages/Video'
+import Video from '../src/pages/Video'
 import customRender from './test-utils'
 
 describe('Video form', () => {

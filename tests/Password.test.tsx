@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import Password from '~/src/pages/Password'
+import Password from '../src/pages/Password'
 import customRender from './test-utils'
 
 describe('Password form', () => {
