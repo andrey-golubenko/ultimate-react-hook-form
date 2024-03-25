@@ -1,9 +1,5 @@
 # ViteRC ❤️‍🔥
 
-## Why
-
-This template arose out of a need to unite all the above libraries, which were not found in the existing Vite templates. This template has an active contributors that will update everything on this template as needed
-
 ## Usage
 
 ```bash

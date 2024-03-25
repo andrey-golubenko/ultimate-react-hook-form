@@ -10,7 +10,7 @@
     "url": "https://github.com/potreco"
   },
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "husky install | chmod ug+x .husky/*",
     "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
