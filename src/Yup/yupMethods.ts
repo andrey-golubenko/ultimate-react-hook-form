@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 // @ts-nocheck
-import { addMethod, string, StringSchema } from 'yup'
+import { addMethod, string } from 'yup'
 import * as Yup from 'yup'
 // pluralize
 const p = function (word, num) {
