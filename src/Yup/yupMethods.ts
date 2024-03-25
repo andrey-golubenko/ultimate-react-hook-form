@@ -15,7 +15,7 @@ const fieldName = (location: string): string =>
 addMethod(
   string,
   'minLowercase',
-  function (length: number = 1, message: string) {
+  function minLowercase(length: number = 1, message: string) {
     const msg =
       message ||
       `${fieldName(
