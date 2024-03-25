@@ -3,9 +3,7 @@
 import { addMethod, string } from 'yup'
 import * as Yup from 'yup'
 // pluralize
-const p = function (word, num) {
-  return num === 1 ? word : `${word}s`
-}
+const p = (word, num) => (num === 1 ? word : `${word}s`)
 
 const isNullOrUndefined = function (value) {
   return value === null || value === undefined || value === ''
