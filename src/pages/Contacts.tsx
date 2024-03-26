@@ -91,7 +91,9 @@ const Contacts: React.ForwardRefExoticComponent<
             type="tel"
             onInput={(event) => {
               // eslint-disable-next-line no-param-reassign, prettier/prettier
-              (event.target as HTMLInputElement).value = normalizePhoneNumber((event.target as HTMLInputElement).value)
+              (event.target as HTMLInputElement).value = normalizePhoneNumber(
+                (event.target as HTMLInputElement).value
+              )
             }}
             error={!!errors.phoneNumber}
             helperText={errors?.phoneNumber?.message}

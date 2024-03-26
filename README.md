@@ -1,19 +1,12 @@
-# ViteRC ❤️‍🔥
+# Material-UI and react-hook-form
 
-## Usage
+## About this project
 
-```bash
-npx degit potreco/viterc my-app
+This project simplifies the use of [`react-hook-form`](https://github.com/react-hook-form/react-hook-form) with [`Yup`](https://github.com/jquense/yup) validation, other auxiliary libraries 
+and [`Material-UI`](https://github.com/mui/material-ui).
 
-cd my-app
+## [DEMO](https://andrey-golubenko.github.io/ultimate-react-hook-form/)
 
-# Required if you want a repository and work with Git hooks
-git init
-
-yarn install
-
-yarn dev
-```
 
 ## Available commands
 
@@ -30,26 +23,6 @@ yarn dev
 | yarn compile  | Runs the TS Compiling                                                       |
 | yarn test     | Run the app tests.                                                          |
 | yarn commit   | Open the CZ CLI to create a message to your commit.                         |
-
-## About the absolute imports
-
-To correctly functioning (code and tests) of absolute imports, you should add some codes in some files, like:
-
-- jest.config.js
-- vite.config.ts
-- tsconfig.json
-
-We already writed some absolute imports on these files, so if you wanna more paths or edit some, feel free to do.
-If your not safe about it or have some question, send us a thread on [Github Discussions](https://github.com/potreco/viterc/discussions/new?category=q-a) asking for, we were happy to help
-
-## TODO
-
-- [x] Eslint
-- [x] Prettier
-- [x] Husky
-- [x] Testing Tools
-- [x] Absolute imports
-- [x] Commit linting
 
 ## License
 
