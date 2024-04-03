@@ -1,0 +1,1 @@
+import{j as e,T as s,L as t}from"./vendor-b73bc09a.js";const n=()=>e.jsxs(e.Fragment,{children:[e.jsx(s,{variant:"h1",align:"center",sx:{lineHeight:1.5},children:"This page doesn't exist."}),e.jsxs(s,{align:"center",sx:{lineHeight:1.5},children:["Please go to: ",e.jsx(t,{to:"/",children:"Homepage"})]})]});export{n as default};

@@ -1,0 +1,1 @@
+import{r as e,j as p,af as r}from"./vendor-b73bc09a.js";const o=e.forwardRef(({percentageWidth:t,...i},n)=>p.jsx(r,{sx:{width:t,"& .MuiInputBase-input.MuiOutlinedInput-input":{padding:"6px 8px"},"& .MuiFormLabel-root":{fontSize:"21px",lineHeight:"normal",top:"-6px"}},variant:"outlined",margin:"normal",fullWidth:!0,inputRef:n,...i}));export{o as T};
