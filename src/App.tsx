@@ -1,16 +1,15 @@
 import './App.css'
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import {
   RouterProvider,
   Route,
   createBrowserRouter,
   createRoutesFromElements
 } from 'react-router-dom'
-import { ErrorBoundary } from 'react-error-boundary'
 import Layout from '@/Components/Layout'
+import RouteComponent from '@/Components/RouteComponent'
+import FormSkeleton from '@/Components/FormComponents/FormSkeleton'
 import router from '@/router'
-import { PATHS } from '@/constants'
-import ErrorPage from './pages/ErrorPage'
 
 function App() {
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -33,15 +32,17 @@ function App() {
               key={path}
               index={index}
               path={path}
-              errorElement={<ErrorComponent />}
+              errorElement={
+                <Suspense fallback={<FormSkeleton />}>
+                  <ErrorComponent />
+                </Suspense>
+              }
               element={
-                path !== PATHS.result ? (
-                  <ErrorBoundary FallbackComponent={ErrorPage} key={path}>
-                    <Component ref={buttonRef} />
-                  </ErrorBoundary>
-                ) : (
-                  <Component />
-                )
+                <RouteComponent
+                  path={path}
+                  component={Component}
+                  ref={buttonRef}
+                />
               }
             />
           )

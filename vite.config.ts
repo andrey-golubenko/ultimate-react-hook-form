@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: '/ultimate-react-hook-form',
-  plugins: [react()],
+  plugins: [react(), splitVendorChunkPlugin()],
   resolve: {
     alias: [
       { find: '@/Assets', replacement: '/src/assets' },

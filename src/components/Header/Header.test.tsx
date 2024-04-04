@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { Route, Routes } from 'react-router-dom'
 import customRender from '~/test-utils'
 import router from '@/router'
+import FormSkeleton from '@/Components/FormComponents/FormSkeleton'
 import Header from '.'
 
 describe('Render the Header Component correctly', () => {
@@ -43,7 +45,11 @@ describe('Render the Header Component correctly', () => {
               key={path}
               index={index}
               path={path}
-              element={<Component />}
+              element={
+                <Suspense fallback={<FormSkeleton />}>
+                  <Component />
+                </Suspense>
+              }
             />
           ))}
         </Routes>

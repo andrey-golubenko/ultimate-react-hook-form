@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs'
+import { FC, ForwardRefExoticComponent, RefAttributes } from 'react'
 
 export type CustomDate = Dayjs | Date | null
 
@@ -60,3 +61,8 @@ export type ErrorPageType = {
   error?: Error
   resetErrorBoundary?: (...args: unknown[]) => void
 }
+
+export type RouteElement =
+  | ForwardRefExoticComponent<SaveData & RefAttributes<unknown>>
+  | (() => JSX.Element | null)
+  | FC

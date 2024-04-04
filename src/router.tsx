@@ -1,23 +1,21 @@
-import { FC, ForwardRefExoticComponent, RefAttributes } from 'react'
-import PersonalInfo from '@/pages/PersonalInfo'
-import Cotacts from '@/pages/Contacts'
-import Files from '@/pages/Files'
-import Result from '@/pages/Result'
+import { FC, lazy } from 'react'
 import { PATHS } from '@/constants'
-import Password from '@/pages/Password'
-import NotFoudPage from '@/pages/NotFoudPage'
-import ErrorPage from '@/pages/ErrorPage'
-import Video from '@/pages/Video'
-import Education from '@/pages/Education'
-import { ErrorPageType, SaveData } from './types'
+import { ErrorPageType, RouteElement } from './types'
+
+const Education = lazy(() => import('@/pages/Education'))
+const Video = lazy(() => import('@/pages/Video'))
+const ErrorPage = lazy(() => import('@/pages/ErrorPage'))
+const NotFoudPage = lazy(() => import('@/pages/NotFoudPage'))
+const Password = lazy(() => import('@/pages/Password'))
+const Result = lazy(() => import('@/pages/Result'))
+const Files = lazy(() => import('@/pages/Files'))
+const Cotacts = lazy(() => import('@/pages/Contacts'))
+const PersonalInfo = lazy(() => import('@/pages/PersonalInfo'))
 
 type SingleRoute = {
   index?: boolean
   path: string
-  component:
-    | ForwardRefExoticComponent<SaveData & RefAttributes<unknown>>
-    | (() => JSX.Element | null)
-    | FC
+  component: RouteElement
   errorComponent: (({ error }: ErrorPageType) => JSX.Element | null) | FC
 }
 
